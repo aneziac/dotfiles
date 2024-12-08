@@ -1,12 +1,15 @@
-[filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+# [filter "lfs"]
+#	process = git-lfs filter-process
+#	required = true
+#	clean = git-lfs clean -- %f
+#	smudge = git-lfs smudge -- %f
 [user]
 	name = Nate Annau
 	email = nateannau@gmail.com
 [credential]
 	user = aneziac
 [init]
-	defaultBranch = master
+	defaultBranch = main
+[core]
+	editor = nvim
+
