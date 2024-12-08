@@ -71,7 +71,7 @@ require("lualine").setup({["options"] = {["globalstatus"] = true,["icons_enabled
 do
   
 
-  local __lspServers = {{["name"] = "typst_lsp"},{["name"] = "tsserver"},{["name"] = "rust_analyzer"},{["name"] = "pyright"},{["name"] = "nil_ls"},{["extraOptions"] = {["settings"] = {["Lua"] = {["diagnostics"] = {["globals"] = {"vim"}},["runtime"] = {["version"] = "LuaJIT"},["telemetry"] = {["enable"] = false},["workspace"] = {["checkThirdParty"] = false,["library"] = {vim.api.nvim_get_runtime_file('', true)}}}}},["name"] = "lua_ls"},{["extraOptions"] = {["cmd"] = {"/nix/store/p2hfkkzvar5mdjw1gchvd32sr7j5avh0-vscode-langservers-extracted-4.8.0/bin/vscode-html-language-server","--stdio"}},["name"] = "html"},{["name"] = "clangd"}}
+  local __lspServers = {{["name"] = "rust_analyzer"},{["name"] = "pyright"},{["name"] = "nil_ls"},{["extraOptions"] = {["cmd"] = {"/nix/store/p2hfkkzvar5mdjw1gchvd32sr7j5avh0-vscode-langservers-extracted-4.8.0/bin/vscode-html-language-server","--stdio"}},["name"] = "html"},{["name"] = "clangd"}}
   local __lspOnAttach = function(client, bufnr)
     
   end
