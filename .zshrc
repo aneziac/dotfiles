@@ -18,9 +18,34 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-ZSH_THEME="powerlvel10k/powerlevel10k"
-PROMPT='%B%F{cyan}%n %F{green}%~%f%b %# '
+# ZSH_THEME="powerlvel10k/powerlevel10k"
+# PROMPT='%B%F{cyan}%n %F{green}%~%f%b %# '
+
+# https://www.youtube.com/watch?v=mmqDYw9C30I 
 
 # fzf key bindings
-eval "$(fzf --zsh)"
+# source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# -- Use fd instead of fzf --
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+alias bat="batcat"
+alias ls="eza --color=always --long --git --icons=always --no-user"
+
+export PATH="$PATH:/opt/nvim/"
 
