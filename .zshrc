@@ -51,6 +51,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 # homebrew
 if [[ $(uname) == "Darwin" ]]; then
-    export PATH="PATH:/opt/brew/bin"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
