@@ -41,7 +41,10 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
-alias bat="batcat"
+if [[ $(uname) == "Linux" ]]; then
+    alias bat="batcat"
+fi
+
 alias ls="eza --color=always --long --icons=always --no-user" # --git
 
 # PATH modifications
