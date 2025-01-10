@@ -18,9 +18,6 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# ZSH_THEME="powerlvel10k/powerlevel10k"
-# PROMPT='%B%F{cyan}%n %F{green}%~%f%b %# '
-
 # https://www.youtube.com/watch?v=mmqDYw9C30I 
 
 # fzf key bindings
@@ -47,5 +44,13 @@ _fzf_compgen_dir() {
 alias bat="batcat"
 alias ls="eza --color=always --long --git --icons=always --no-user"
 
-export PATH="$PATH:/opt/nvim/"
+# PATH modifications
+export PATH="$PATH:/opt/nvim/"  # nvim
+export PATH="$HOME/.elan/bin:$PATH"  # lean
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# homebrew
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH="PATH:/opt/brew/bin"
+fi
 
