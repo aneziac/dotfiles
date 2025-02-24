@@ -18,7 +18,7 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# https://www.youtube.com/watch?v=mmqDYw9C30I 
+# https://www.youtube.com/watch?v=mmqDYw9C30I
 
 # fzf key bindings
 # source /usr/share/doc/fzf/examples/key-bindings.zsh
@@ -42,15 +42,26 @@ _fzf_compgen_dir() {
 }
 
 alias bat="batcat"
-alias ls="eza --color=always --long --git --icons=always --no-user"
+alias ls="eza --color=always --long --icons=always --no-user" # --git
 
 # PATH modifications
-export PATH="$PATH:/opt/nvim/"  # nvim
+export PATH="$PATH:/opt/nvim"  # nvim
 export PATH="$HOME/.elan/bin:$PATH"  # lean
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"  # rust
+export PATH="/usr/local/go/bin:$PATH"  # go
 
 # homebrew
 if [[ $(uname) == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/nate/.opam/opam-init/init.zsh' ]] || source '/home/nate/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"

@@ -13,7 +13,7 @@ fi
 DEST_DIR="$HOME"
 
 # Excluded files from symlinking
-EXCLUDES=(".git" ".gitignore" "." ".." "setup_symlinks.sh")
+EXCLUDES=(".git" ".gitignore" ".config" "." ".." "setup_symlinks.sh")
 
 is_excluded() {
 	local file_name=$(basename "$1")
@@ -26,7 +26,6 @@ is_excluded() {
 }
 
 for file in "$DOTFILES_DIR"/.* "$DOTFILES_DIR"/*; do
-	# Skip .. and .
 	if is_excluded "$file"; then
 		continue
 	fi
@@ -35,3 +34,11 @@ for file in "$DOTFILES_DIR"/.* "$DOTFILES_DIR"/*; do
 	echo "Linked $(basename "$file")"
 done
 
+for file in "$DOTFILES_DIR"/.config/*; do
+	if is_excluded "$file"; then
+		continue
+	fi
+	
+	ln -sfn "$file" "$DEST_DIR/.config/$(basename "$file")"
+	echo "Linked $(basename "$file")"
+done
