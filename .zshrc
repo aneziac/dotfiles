@@ -46,6 +46,7 @@ if [[ $(uname) == "Linux" ]]; then
 fi
 
 alias ls="eza --color=always --long --icons=always --no-user" # --git
+eval "$(zoxide init zsh)"
 
 # PATH modifications
 export PATH="$PATH:/opt/nvim"  # nvim
