@@ -64,7 +64,8 @@ fi
 #   - the correct directories to the PATH
 #   - auto-completion for the opam binary
 # This section can be safely removed at any time if needed.
-[[ ! -r '/home/nate/.opam/opam-init/init.zsh' ]] || source '/home/nate/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+[[ ! -r '~/.opam/opam-init/init.zsh' ]] || source '~/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+eval $(opam config env)
 # END opam configuration
 
 export VISUAL=nvim

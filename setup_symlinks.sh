@@ -2,7 +2,7 @@
 
 OS=$(uname)
 if [[ $OS == "Darwin" ]]; then
-	DOTFILES_DIR="/Users/Nate/Documents/Github/dotfiles"
+	DOTFILES_DIR="/Users/Nate/code/dotfiles"
 elif [[ $OS == "Linux" ]]; then
 	DOTFILES_DIR="/home/nate/code/dotfiles"
 else
