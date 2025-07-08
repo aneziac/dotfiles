@@ -8,7 +8,6 @@ vim.g.have_nerd_font = true
 -- line numbers are relative with current number being absolute
 vim.opt.relativenumber = true
 vim.opt.number = true
-
 -- Enable mouse mode
 vim.opt.mouse = 'a'
 
@@ -90,6 +89,38 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Resize splits with Ctrl + arrow keys
+vim.keymap.set('n', '<C-Up>',    '<Cmd>resize +2<CR>', { desc = 'Increase window height' })
+vim.keymap.set('n', '<C-Down>',  '<Cmd>resize -2<CR>', { desc = 'Decrease window height' })
+vim.keymap.set('n', '<C-Left>',  '<Cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
+vim.keymap.set('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
+
+vim.keymap.set('n', '<leader>tw', function()
+  vim.wo.wrap = not vim.wo.wrap
+end, { desc = '[T]oggle [W]rap' })
+
+
+-- Auto-detect and activate Python virtualenv in project
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    local cwd = vim.loop.cwd()
+    local venv_path = cwd .. "/venv/bin/python"
+
+    if vim.fn.filereadable(venv_path) == 1 then
+      vim.g.python3_host_prog = venv_path
+    end
+  end,
+})
+
+
+
+-- Show docs when cursor holds
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   callback = function()
+--     vim.lsp.buf.hover()
+--   end,
+-- })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -303,11 +334,23 @@ require('lazy').setup {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
+      local function find_files_smart()
+        local cwd = vim.loop.cwd() or ""
+        local is_dotfiles = cwd:match("/dotfiles") or cwd:match("/%.config")
+
+        require("telescope.builtin").find_files({
+          hidden = is_dotfiles,
+          file_ignore_patterns = is_dotfiles and { "%.git/" } or nil,
+        })
+      end
+
+      vim.keymap.set('n', '<leader>sf', find_files_smart, { desc = '[S]earch [F]iles' })
+
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -571,6 +614,42 @@ require('lazy').setup {
     end,
   },
 
+  -- Copilot
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    dependencies = { "zbirenbaum/copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "main",
+    dependencies = {
+      { "zbirenbaum/copilot.lua" }, -- you must already have this configured
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+    },
+    opts = {
+      show_help = true,
+    },
+    keys = {
+      { "<leader>cop", function() require("CopilotChat").toggle() end, desc = "Copilot Chat Toggle" },
+      { "<leader>cq", function() require("CopilotChat").ask("What does this code do?") end, mode = "v", desc = "Copilot Chat: Explain selection" },
+    },
+  },
+
+
   -- { -- Autoformat
   --   'stevearc/conform.nvim',
   --   event = { 'BufWritePre' },
@@ -717,6 +796,7 @@ require('lazy').setup {
           --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = {
+          { name = "copilot" },
           {
             name = 'lazydev',
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
@@ -882,53 +962,14 @@ require('lazy').setup {
     end,
   },
   {
-    'nvimdev/dashboard-nvim',
-    lazy = false, -- As https://github.com/nvimdev/dashboard-nvim/pull/450, dashboard-nvim shouldn't be lazy-loaded to properly handle stdin.
-    opts = function()
-      local logo = [[
-           ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗           
-           ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║           
-           ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║           
-           ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║           
-           ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           
-           ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
-      ]]
-
-      logo = string.rep('\n', 8) .. logo .. '\n\n'
-
-      local opts = {
-        theme = 'hyper',
-        hide = {
-          -- this is taken care of by lualine
-          -- enabling this messes up the actual laststatus setting after loading a file
-          statusline = false,
-        },
-        config = {
-          header = vim.split(logo, '\n'),
-        },
-      }
-
-      --   for _, button in ipairs(opts.config.center) do
-      --     button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-      --     button.key_format = "  %s"
-      --   end
-
-      -- open dashboard after closing lazy
-      if vim.o.filetype == 'lazy' then
-        vim.api.nvim_create_autocmd('WinClosed', {
-          pattern = tostring(vim.api.nvim_get_current_win()),
-          once = true,
-          callback = function()
-            vim.schedule(function()
-              vim.api.nvim_exec_autocmds('UIEnter', { group = 'dashboard' })
-            end)
-          end,
-        })
-      end
-
-      return opts
+    'goolord/alpha-nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    event = 'VimEnter',
+    config = function()
+      require('alpha').setup(require('alpha.themes.dashboard').config)
     end,
   },
+
 
   -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -957,6 +998,8 @@ require('lazy').setup {
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }
+
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Pmenu" })  -- or use custom color
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
