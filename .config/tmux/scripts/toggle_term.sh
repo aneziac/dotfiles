@@ -13,7 +13,7 @@ term_pane=$(tmux list-panes -F "#{window_id}:#{pane_id}:#{pane_title}" \
 if [ "$current_cmd" = "nvim" ] && [ -n "$term_pane" ]; then
   tmux kill-pane -t "$term_pane"
 elif [ "$current_cmd" = "nvim" ] && [ -z "$term_pane" ]; then
-  tmux split-window -v -l 10
+  tmux split-window -v -l 20
   tmux select-pane -T term-pane
 elif [ "$current_cmd" != "nvim" ] && [ "$(tmux display-message -p "#{pane_title}")" = "term-pane" ]; then
   tmux kill-pane -t "$current_pane"

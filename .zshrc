@@ -42,6 +42,7 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 
 if [[ $(uname) == "Linux" ]]; then
     alias bat="batcat"
+    export DOCKER_HOST=unix:///var/run/docker.sock
 fi
 
 alias ls="eza --color=always --long --icons=always --no-user" # --git
@@ -82,4 +83,14 @@ eval "$(atuin init zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias v="nvim"
+
+function copy-last-output() {
+  local last_cmd=$(fc -ln -1)
+  eval "$last_cmd" |xclip -selection clipboard # pbcopy (MacOS) / wl-copy (Wayland)
+}
+
+zle -N copy-last-output
+bindkey '^O' copy-last-output
 
