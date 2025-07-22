@@ -1,0 +1,41 @@
+# Command line
+zsh
+neovim
+curl
+eza
+zoxide
+wget
+tmux
+tree
+fzf
+tldr
+bat
+zathura
+
+# Dev tools
+git
+gdb
+valgrind
+make
+gcc
+
+# GUI
+# firefox
+
+# networking
+openssh-client
+
+# languages
+python3
+python3-pip
+python3.12-venv
+nodejs
+npm
+# rustup
+# cargo
+golang-go
+lua5.4
+
+# ux
+neofetch
+

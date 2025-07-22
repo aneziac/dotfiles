@@ -2,9 +2,9 @@
 
 OS=$(uname)
 if [[ $OS == "Darwin" ]]; then
-	DOTFILES_DIR="/Users/Nate/code/dotfiles"
+	DOTFILES_DIR="$HOME/code/dotfiles"
 elif [[ $OS == "Linux" ]]; then
-	DOTFILES_DIR="/home/nate/code/dotfiles"
+	DOTFILES_DIR="$HOME/code/dotfiles"
 else
 	echo "Unknown OS: $OS"
 	exit 1
