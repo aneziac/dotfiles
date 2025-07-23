@@ -109,6 +109,16 @@ else
   echo "Go already installed, skipping..."
 fi
 
+# Ensure Python 3.12 and python3.12-venv are installed
+if ! command -v python3.12 >/dev/null 2>&1; then
+  echo "Installing Python 3.12 and venv from deadsnakes PPA..."
+  sudo add-apt-repository -y ppa:deadsnakes/ppa
+  sudo apt update
+  sudo apt install -y python3.12 python3.12-venv python3.12-dev
+else
+  echo "Python 3.12 already installed, skipping..."
+fi
+
 # Add Go to PATH (for current session; for persistence add to .zshrc or .bashrc)
 export PATH=$PATH:/usr/local/go/bin
 echo "Go version: $(go version)"
