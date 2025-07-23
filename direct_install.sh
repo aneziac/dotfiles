@@ -34,6 +34,14 @@ else
   echo "dust already installed, skipping..."
 fi
 
+# Install eza if not already present
+if ! command -v eza >/dev/null 2>&1; then
+  echo "Installing eza with cargo..."
+  cargo install eza
+else
+  echo "eza already installed, skipping..."
+fi
+
 # Install NVM and ensure Node.js 20+ is installed
 if [[ ! -d "$HOME/.nvm" ]]; then
   echo "Installing nvm..."

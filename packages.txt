@@ -1,7 +1,6 @@
 # Command line
 zsh
 curl
-eza
 zoxide
 wget
 tmux
