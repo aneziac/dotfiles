@@ -1,0 +1,20 @@
+set relativenumber
+set number
+set mouse=a
+set showmode
+set breakindent
+set undofile
+set ignorecase
+set smartcase
+set signcolumn=yes
+set updatetime=250
+set timeoutlen=300
+set splitright
+set splitbelow
+set list
+set listchars=tab:»\ ,trail:·,nbsp:␣,eol:⏎
+set inccommand=split
+set cursorline
+set scrolloff=15
+set clipboard=unnamedplus
+
