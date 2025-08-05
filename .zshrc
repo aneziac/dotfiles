@@ -89,6 +89,9 @@ alias v="nvim"
 alias lgt="lazygit"
 alias ldk="lazydocker"
 
+# Since tmux vim overrides ctrl l
+bindkey '^G' clear-screen
+
 function copy-last-output() {
   local last_cmd=$(fc -ln -1)
   eval "$last_cmd" |xclip -selection clipboard # pbcopy (MacOS) / wl-copy (Wayland)
