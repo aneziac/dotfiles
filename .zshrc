@@ -45,7 +45,7 @@ if [[ $(uname) == "Linux" ]]; then
     export DOCKER_HOST=unix:///var/run/docker.sock
 fi
 
-alias ls="eza --color=always --long --icons=always --no-user" # --git
+alias l="eza --color=always --long --icons=always --no-user" # --git
 eval "$(zoxide init zsh)"
 
 # PATH modifications
@@ -76,15 +76,18 @@ export EDITOR="$VISUAL"
 # Vimlike editing
 bindkey -v
 
+# Atuin
 . "$HOME/.atuin/bin/env"
-
 eval "$(atuin init zsh)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Aliases
 alias v="nvim"
+alias lgt="lazygit"
+alias ldk="lazydocker"
 
 function copy-last-output() {
   local last_cmd=$(fc -ln -1)
@@ -93,4 +96,3 @@ function copy-last-output() {
 
 zle -N copy-last-output
 bindkey '^O' copy-last-output
-
