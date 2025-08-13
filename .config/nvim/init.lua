@@ -118,7 +118,17 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
+vim.keymap.set('n', '<leader>so', function()
+  -- Reload init.lua
+  vim.cmd('source $MYVIMRC')
 
+  -- Restart all active LSP clients
+  for _, client in pairs(vim.lsp.get_clients()) do
+    client.stop()
+  end
+  vim.cmd('edit') -- reopen current buffer to trigger LspAttach
+  print('Config reloaded and LSP servers restarted!')
+end, { desc = 'Source init.lua and restart LSP' })
 
 -- Show docs when cursor holds
 -- vim.api.nvim_create_autocmd("CursorHold", {
@@ -411,11 +421,6 @@ require('lazy').setup {
       {
         'williamboman/mason.nvim',
         config = true,
-        opts = {
-          ensure_installed = {
-            'tinymist',
-          },
-        },
       }, -- NOTE: Must be loaded before dependants
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -464,6 +469,9 @@ require('lazy').setup {
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+
+          -- Show documentation for the symbol under the cursor
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
@@ -548,6 +556,8 @@ require('lazy').setup {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+      local util = require('lspconfig.util')
+
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -560,28 +570,25 @@ require('lazy').setup {
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {},
+        pyright = {
+        --  root_dir = util.root_pattern('pyrightconfig.json', '.git'),
+        },
         rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
-
+        ts_ls = {},
+        tinymist = {
+          settings = {
+            formatterMode = 'typstyle',
+            exportPdf = 'onType',
+            semanticTokens = 'disable',
+          },
+        },
         lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
                 callSnippet = 'Replace',
               },
-              -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = { disable = { 'missing-fields' } },
             },
           },
         },
@@ -990,7 +997,7 @@ require('lazy').setup {
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

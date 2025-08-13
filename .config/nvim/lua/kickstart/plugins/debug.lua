@@ -95,6 +95,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'python'
       },
     }
 
@@ -121,16 +122,16 @@ return {
     }
 
     -- Change breakpoint icons
-    -- vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
-    -- vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
-    -- local breakpoint_icons = vim.g.have_nerd_font
-    --     and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
-    --   or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
-    -- for type, icon in pairs(breakpoint_icons) do
-    --   local tp = 'Dap' .. type
-    --   local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
-    --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
-    -- end
+    vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
+    vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
+    local breakpoint_icons = vim.g.have_nerd_font
+        and { Breakpoint = '', BreakpointCondition = '', BreakpointRejected = '', LogPoint = '', Stopped = '' }
+      or { Breakpoint = '●', BreakpointCondition = '⊜', BreakpointRejected = '⊘', LogPoint = '◆', Stopped = '⭔' }
+    for type, icon in pairs(breakpoint_icons) do
+      local tp = 'Dap' .. type
+      local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
+      vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+    end
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
@@ -144,5 +145,85 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+  
+    -- Adapter (debugpy)
+    dap.adapters.python = {
+      type = 'executable',
+      command = vim.fn.exepath('python3') or 'python3',
+      args = { '-m', 'debugpy.adapter' },
+    }
+
+    -- Portable path helpers (no vim.fs.relative)
+    local function norm_abs(p) return vim.fn.fnamemodify(p, ':p') end
+    local function dirname(p)  return vim.fs.dirname(p) or vim.fn.fnamemodify(p, ':h') end
+    local function isdir(p)    return vim.fn.isdirectory(p) == 1 end
+
+    local function rel_from_root(path, root)
+      local PSEP = package.config:sub(1, 1) -- '/' on *nix, '\' on Windows
+      path = norm_abs(path)
+      root = norm_abs(root)
+      if path:sub(1, #root) == root then
+        local rel = path:sub(#root + 2) -- skip separator
+        return rel:gsub('\\', '/')      -- normalize to forward slashes
+      end
+      return path:gsub('\\', '/')
+    end
+
+    -- Find the project root by common markers
+    local function find_root(start_dir)
+      local markers = { '.git', 'pyrightconfig.json' }
+      local found = vim.fs.find(markers, { upward = true, path = start_dir })[1]
+      return found and dirname(found) or vim.fn.getcwd()
+    end
+
+    -- Compute cwd/module consistently
+    local function py_launch_info()
+      local bufpath = vim.api.nvim_buf_get_name(0)
+      local bufdir  = dirname(bufpath)
+      local root    = find_root(bufdir)
+
+      local rel = rel_from_root(bufpath, root) -- e.g. "src/pkg/mod.py" or "pkg/mod.py"
+
+      local use_src = rel:match('^src/')
+      local cwd = use_src and (root .. '/src') or root
+
+      -- Rel path from cwd (so module & cwd align)
+      if use_src then rel = rel:gsub('^src/', '') end
+
+      -- Build dotted module
+      rel = rel:gsub('%.py$', '')
+      rel = rel:gsub('/__init__$', '')      -- package module
+      local module = rel:gsub('/', '.')
+
+      return cwd, module
+    end
+
+    dap.configurations.python = {
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Python: current file as module (-m)',
+        module = function()
+          local _, mod = py_launch_info()
+          return mod
+        end,
+        cwd = function()
+          local c, _ = py_launch_info()
+          return c
+        end,
+        justMyCode = false,
+        console = 'integratedTerminal',
+        pythonPath = function()
+          local venv = os.getenv('VIRTUAL_ENV') or os.getenv('CONDA_PREFIX')
+          if venv and vim.fn.has('win32') == 0 then
+            return venv .. '/bin/python'
+          elseif venv then
+            return venv .. '\\python.exe'
+          end
+          return vim.fn.exepath('python3') or 'python3'
+        end,
+      },
+    }
+
   end,
 }
