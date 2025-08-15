@@ -102,19 +102,11 @@ bindsym $mod+Shift+r reload
 bindsym $mod+Shift+c restart
 bindsym $mod+Shift+e exec --no-startup-id i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'
 
-## Autostart (order matters: monitors -> wallpaper -> bar)
-# 1) Displays
-exec_always --no-startup-id ~/.config/i3/monitors.sh
+# Start monitors -> wallpaper -> polybar in order
+exec_always --no-startup-id ~/.config/i3/start-session.sh
 
-# 2) Wallpaper
-exec_always --no-startup-id ~/.config/i3/set-wallpapers.sh
-
-# 3) Polybar
-exec_always --no-startup-id ~/.config/polybar/launch.sh
-
-# 4) Picom
+# Compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
-# 5) Remap capslock -> esc
+# Caps -> Esc
 exec_always --no-startup-id setxkbmap -option caps:escape
-

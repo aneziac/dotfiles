@@ -1,8 +1,0 @@
-{
-  "manifest_version": "1",
-  "name": "Gruvbox Dark",
-  "display_name": "Gruvbox Dark",
-  "extend_theme": null,
-  "css_file": "style.css"
-}
-
