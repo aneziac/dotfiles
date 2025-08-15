@@ -1,7 +1,10 @@
 set $mod Mod4
 
 ## Appearance
-font pango:JetBrainsMono Nerd Font 11
+exec_always --no-startup-id xrdb -merge ~/.Xresources
+exec_always --no-startup-id gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
+
+font pango:MesloLGS NF 14
 
 # No titlebars; use pixel borders
 default_border pixel 3
@@ -103,15 +106,15 @@ bindsym $mod+Shift+e exec --no-startup-id i3-nagbar -t warning -m 'Exit i3?' -b 
 # 1) Displays
 exec_always --no-startup-id ~/.config/i3/monitors.sh
 
-# 2) Wallpaper: use your saved feh config if present
+# 2) Wallpaper
 exec_always --no-startup-id ~/.config/i3/set-wallpapers.sh
 
-# 3) Polybar (multi-monitor launcher script recommended)
+# 3) Polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 
-## Keyboard tweaks: Caps = Ctrl when held, Esc when tapped
-exec_always --no-startup-id setxkbmap -option ctrl:nocaps
-# exec_always --no-startup-id xcape -e 'Control_L=Escape'
+# 4) Picom
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
-# Optional compositor for subtle inactive dim / shadows (uncomment if you use it)
-# exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+# 5) Remap capslock -> esc
+exec_always --no-startup-id setxkbmap -option caps:escape
+
