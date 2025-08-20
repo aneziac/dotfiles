@@ -114,6 +114,8 @@ vim.keymap.set('n', '<C-Down>',  '<Cmd>resize -2<CR>', { desc = 'Decrease window
 vim.keymap.set('n', '<C-Left>',  '<Cmd>vertical resize -2<CR>', { desc = 'Decrease window width' })
 vim.keymap.set('n', '<C-Right>', '<Cmd>vertical resize +2<CR>', { desc = 'Increase window width' })
 
+-- Toggle wrap
+vim.wo.wrap = false -- Off by default
 vim.keymap.set('n', '<leader>tw', function()
   vim.wo.wrap = not vim.wo.wrap
 end, { desc = '[T]oggle [W]rap' })

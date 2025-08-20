@@ -34,4 +34,6 @@ lua5.4
 
 # ux
 neofetch
+playerctl
+brightnessctl
 
