@@ -40,26 +40,29 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 #   fd --type=d --hidden --exclude .git . "$1"
 # }
 
+# homebrew (done first to set PATH correctly)
+if [[ $(uname) == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Essential command line tools
+alias l="eza --color=always --long --icons=always --no-user" # --git
+eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
+
+# Some additional modifications to make on linux
 if [[ $(uname) == "Linux" ]]; then
     alias bat="batcat"
     export DOCKER_HOST=unix:///var/run/docker.sock
+    . "$HOME/.atuin/bin/env"
 fi
-
-alias l="eza --color=always --long --icons=always --no-user" # --git
-eval "$(zoxide init zsh)"
 
 # PATH modifications
 export PATH="$PATH:/opt/nvim"  # nvim
 export PATH="$HOME/.elan/bin:$PATH"  # lean
 export PATH="$HOME/.cargo/bin:$PATH"  # rust
 export PATH="/usr/local/go/bin:$PATH"  # go
-
-export PATH="$HOME/.local/bin:$PATH"
-
-# homebrew
-if [[ $(uname) == "Darwin" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+export PATH="$HOME/.local/bin:$PATH"  # misc
 
 # BEGIN opam configuration (for OCaml)
 if command -v opam >/dev/null 2>&1 && [[ -r "$HOME/.opam/opam-init/init.zsh" ]]; then
@@ -68,18 +71,17 @@ if command -v opam >/dev/null 2>&1 && [[ -r "$HOME/.opam/opam-init/init.zsh" ]];
 fi
 # END opam configuration
 
+# Use nvim
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
+# fzf config
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Vimlike editing
 bindkey -v
 
-# Atuin
-. "$HOME/.atuin/bin/env"
-eval "$(atuin init zsh)"
-
+# node version manager
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -92,6 +94,7 @@ alias ldk="lazydocker"
 # Since tmux vim overrides ctrl l
 bindkey '^G' clear-screen
 
+# Ctrl o copies last output
 function copy-last-output() {
   local last_cmd=$(fc -ln -1)
   eval "$last_cmd" |xclip -selection clipboard # pbcopy (MacOS) / wl-copy (Wayland)
