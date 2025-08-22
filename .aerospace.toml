@@ -1,0 +1,87 @@
+# Keep Aerospace’s “normalization” off initially to mimic i3 more closely.
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+# Mouse follows focus when monitor changes (nice QoL)
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# ---------------
+# MAIN MODE
+# ---------------
+[mode.main.binding]
+
+# --- Launchers / Apps ---
+
+alt-enter = 'exec-and-forget open -na "Alacritty.app"'
+
+# --- Tmux-style splits & kill ---
+# bindsym $mod+Shift+apostrophe split v
+# bindsym $mod+Shift+5          split h
+# bindsym $mod+q                kill
+alt-shift-quote = 'split vertical'
+alt-shift-5     = 'split horizontal'
+alt-q           = 'close'
+
+# --- Focus (h/j/k/l) ---
+# bindsym $mod+h/j/k/l focus ...
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# --- Move (Shift+h/j/k/l) ---
+# bindsym $mod+Shift+h/j/k/l move ...
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# --- Resize (alt+Ctrl+Arrows) ---
+# i3: 5 px or 5 ppt; Aerospace uses pixel-ish increments. Tune to taste.
+# bindsym $mod+Ctrl+Left  resize shrink width
+# bindsym $mod+Ctrl+Right resize grow   width
+# bindsym $mod+Ctrl+Down  resize grow  height
+# bindsym $mod+Ctrl+Up    resize shrink height
+alt-ctrl-left  = 'resize width -50'
+alt-ctrl-right = 'resize width +50'
+alt-ctrl-down  = 'resize height +50'
+alt-ctrl-up    = 'resize height -50'
+
+# --- Layouts / Fullscreen ---
+# bindsym $mod+e layout toggle split
+# bindsym $mod+z fullscreen toggle
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+alt-e = 'layout tiles horizontal vertical'
+alt-z = 'fullscreen'
+alt-s = 'layout v_accordion'
+alt-w = 'layout h_accordion'
+
+# --- Workspaces 1–9 ---
+# set $ws1..$ws9 and bindsym $mod+N workspace number $wsN
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+# (No explicit "10" in your file; add if desired)
+# alt-0 = 'workspace 10'
+
+# Move container to workspace (you used alt+Ctrl+N)
+alt-ctrl-1 = 'move-node-to-workspace 1'
+alt-ctrl-2 = 'move-node-to-workspace 2'
+alt-ctrl-3 = 'move-node-to-workspace 3'
+alt-ctrl-4 = 'move-node-to-workspace 4'
+alt-ctrl-5 = 'move-node-to-workspace 5'
+alt-ctrl-6 = 'move-node-to-workspace 6'
+alt-ctrl-7 = 'move-node-to-workspace 7'
+alt-ctrl-8 = 'move-node-to-workspace 8'
+alt-ctrl-9 = 'move-node-to-workspace 9'
+# (Add 10 if you add it above)
+# alt-ctrl-0 = 'move-node-to-workspace 10'
+
+alt-shift-r = 'reload-config'

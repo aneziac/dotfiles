@@ -26,7 +26,7 @@ white   = "0xebdbb2"
 normal.family = "MesloLGS NF"
 size = 12.0
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [window]
@@ -37,6 +37,8 @@ dimensions.lines = 24
 [window.padding]
 x = 8
 y = 6
+
+[terminal]
 
 # Fullscreen is conflicting, figure out later
 # [[keyboard.bindings]]
