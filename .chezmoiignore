@@ -1,0 +1,19 @@
+{{ if eq .chezmoi.os "darwin" }}
+.config/i3
+.config/picom
+.config/polybar
+.config/ulauncher
+.config/gtk-3.0
+.mozilla
+.Xresources
+{{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.ID "linuxmint") }}
+.config/i3
+.config/picom
+.config/polybar
+.config/ulauncher
+.config/gtk-3.0
+.mozilla
+.Xresources
+{{ end }}
