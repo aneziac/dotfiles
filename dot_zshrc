@@ -102,3 +102,9 @@ function copy-last-output() {
 
 zle -N copy-last-output
 bindkey '^O' copy-last-output
+
+# Final path modifications - put nix first
+export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+
+# And remove dupes (bc nix path is repeated twice on MacOS)
+export PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
