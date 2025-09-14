@@ -11,16 +11,10 @@
         pkgs = nixpkgs.legacyPackages.aarch64-darwin;
         modules = [ ./home.nix ];
       };
- 
-      # "mint" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #   modules = [ ./home.nix ];
-      # };
-      # 
-      # "arch" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #   modules = [ ./home.nix ];
-      # };
+      "linux" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [ ./home.nix ];
+      };
     };
   };
 }
