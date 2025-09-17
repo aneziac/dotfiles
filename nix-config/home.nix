@@ -141,7 +141,10 @@ in {
   ] ++ lib.optionals isMint [
     # WM
     i3
-    polybar
+    (polybar.override {
+      i3Support = true;
+      pulseSupport = true;
+    })
     picom
     rofi
     # UX
