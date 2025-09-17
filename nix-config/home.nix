@@ -4,8 +4,29 @@
   home.username = if pkgs.stdenv.isDarwin then "Nate" else "nate";
   home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/Nate" else "/home/nate";
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+    ];
+  };
+
   home.packages = with pkgs; [
     # Core
+    chezmoi
     neovim
     vim
     git
@@ -26,6 +47,14 @@
     lazydocker
     binutils
     zathura
+    delta
+    ripgrep
+    fd
+    jq
+    yq
+    gh
+    htop
+    scooter
 
     # Containers / builds
     docker
@@ -65,11 +94,11 @@
     gnumake
     gcc
 
-    # Typst
+    ## Typst
     typst
     tinymist
 
-    # Misc
+    ## Misc
     go
     lua
 
@@ -81,21 +110,12 @@
 
     # Fonts
     # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
-
-    # Recommended by Claude, try to incorporate into workflow
-    delta
-    ripgrep
-    fd
-    jq
-    yq
-    gh
-    htop
   ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
     # WM
     i3
     polybar
     picom
-    ulauncher
+    # ulauncher
 
     # UX
     playerctl
