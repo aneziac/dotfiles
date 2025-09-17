@@ -43,9 +43,9 @@
 
   home.packages = with pkgs; [
     # Core
-    chezmoi
     zsh-powerlevel10k
     neovim
+    age
     vim
     git
     curl
