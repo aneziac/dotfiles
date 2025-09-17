@@ -4,18 +4,21 @@ README.md
 .config/i3
 .config/picom
 .config/polybar
-.config/ulauncher
+.config/rofi
 .config/gtk-3.0
-.mozilla
 .Xresources
 {{ end }}
 
-{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") }}
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
+dot_aerospace.toml
+{{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
+dot_aerospace.toml
 .config/i3
 .config/picom
 .config/polybar
-.config/ulauncher
+.config/rofi
 .config/gtk-3.0
-.mozilla
 .Xresources
 {{ end }}
