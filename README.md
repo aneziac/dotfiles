@@ -45,3 +45,7 @@ Setup steps on new machine:
     chezmoi apply
     git remote set-url origin git@github.com:aneziac/dotfiles.git
     ```
+
+TO DO
+
+- View previous revisions of file in nvim

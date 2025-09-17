@@ -1,0 +1,87 @@
+configuration {
+    modi: "drun";
+    show-icons: true;
+    terminal: "alacritty";
+    drun-display-format: "{name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    sidebar-mode: false;
+}
+
+* {
+    bg-col:  #282828;
+    bg-col-light: #3c3836;
+    border-col: #d79921;
+    selected-col: #504945;
+    blue: #83a598;
+    fg-col: #ebdbb2;
+    fg-col2: #fe8019;
+    grey: #928374;
+
+    width: 1200;
+    font: "MesloLGS NF 24";
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+window {
+    height: 800px;
+    border: 6px;
+    border-color: @border-col;
+    background-color: @bg-col;
+    border-radius: 20px;
+}
+
+mainbox {
+    background-color: @bg-col;
+}
+
+inputbar {
+    children: [prompt,entry];
+    background-color: @bg-col;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+prompt {
+    background-color: @blue;
+    padding: 12px;
+    text-color: @bg-col;
+    border-radius: 6px;
+    margin: 40px 0px 0px 40px;
+}
+
+entry {
+    padding: 12px;
+    margin: 40px 0px 0px 20px;
+    text-color: @fg-col;
+    background-color: @bg-col;
+}
+
+listview {
+    border: 0px 0px 0px;
+    padding: 12px 0px 0px;
+    margin: 20px 0px 0px 40px;
+    columns: 1;
+    lines: 12;
+    background-color: @bg-col;
+}
+
+element {
+    padding: 12px;
+    background-color: @bg-col;
+    text-color: @fg-col;
+}
+
+element-icon {
+    size: 48px;
+}
+
+element selected {
+    background-color: @selected-col;
+    text-color: @fg-col2;
+}

@@ -1,13 +1,17 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, mySystem, ... }:
+let
+  isLinux  = pkgs.stdenv.isLinux;
+  isDarwin = pkgs.stdenv.isDarwin;
+
+  isMint = mySystem == "mint";
+  isArch = mySystem == "arch";
+in {
   programs.home-manager.enable = true;
 
-  home.username      = if pkgs.stdenv.isDarwin then "Nate"        else "nate"      ;
-  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/Nate" else "/home/nate";
+  home.username      = if isDarwin then "Nate"        else "nate"      ;
+  home.homeDirectory = if isDarwin then "/Users/Nate" else "/home/nate";
 
   nixpkgs.config.allowUnfree = true;
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "libsoup-2.74.3"
-  # ];
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -27,14 +31,14 @@
       v   = "nvim";
       lgt = "lazygit";
       ldk = "lazydocker";
-    } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+    } // lib.optionalAttrs (!isDarwin) {
       bat = "batcat";
     };
 
     sessionVariables = {
       VISUAL = "nvim";
       EDITOR = "nvim";
-    } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+    } // lib.optionalAttrs (!isDarwin) {
       DOCKER_HOST = "unix:///var/run/docker.sock";
     };
 
@@ -64,7 +68,6 @@
     lazygit
     lazydocker
     binutils
-    zathura
     delta
     ripgrep
     fd
@@ -73,6 +76,8 @@
     gh
     htop
     scooter
+    spotify-player
+    zathura
 
     # Containers / builds
     docker
@@ -86,7 +91,6 @@
 
     # Terminal
     tmux
-    alacritty
     yazi
 
     # Development
@@ -112,11 +116,8 @@
     gnumake
     gcc
 
-    ## Typst
-    typst
-    tinymist
-
     ## Misc
+    typst
     go
     lua
 
@@ -130,19 +131,55 @@
     noto-fonts
     noto-fonts-color-emoji
     nerd-fonts.meslo-lg
-  ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+
+  ] ++ lib.optionals isLinux [
+    # System
+    bluez
+    bluez-tools
+    pavucontrol
+
+  ] ++ lib.optionals isMint [
     # WM
     i3
     polybar
     picom
-    # ulauncher
-
+    rofi
     # UX
     playerctl
     brightnessctl
-  ] ++ lib.optionals (pkgs.stdenv.isDarwin) [
+
+  ] ++ lib.optionals isArch [
+    # WM
+    niri
+    waybar
+    fuzzel
+    mako
+
+    # Utils
+    grim
+    slurp
+    wl-clipboard
+
+    # GUI
+    alacritty
+    firefox
+    code
+    spotify
+    discord
+    bitwarden-desktop
+    gpick
+    gthumb
+    xournalpp
+    libreoffice-qt6-fresh
+    obs-studio
+    steam
+    whatsapp-electron
+    gimp3
+    zoom-us
+
+  ] ++ lib.optionals isDarwin [
     aerospace
   ];
 
-  home.stateVersion = "24.05";
+  home.stateVersion = "25.05";
 }

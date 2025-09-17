@@ -33,8 +33,7 @@ exec_always --no-startup-id setxkbmap -option caps:escape
 ## Input / misc
 floating_modifier $mod
 
-exec --no-startup-id ulauncher
-bindsym $mod+space exec ulauncher-toggle
+bindsym $mod+space exec --no-startup-id rofi -show drun
 
 bindsym $mod+Return exec alacritty
 
