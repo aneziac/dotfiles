@@ -1,14 +1,13 @@
 { config, pkgs, lib, ... }: {
   programs.home-manager.enable = true;
 
-  home.username = if pkgs.stdenv.isDarwin then "Nate" else "nate";
+  home.username      = if pkgs.stdenv.isDarwin then "Nate"        else "nate"      ;
   home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/Nate" else "/home/nate";
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "libsoup-2.74.3"
-  ];
-
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "libsoup-2.74.3"
+  # ];
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -22,11 +21,30 @@
         file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       }
     ];
+
+    shellAliases = {
+      l   = "eza --color=always --long --icons=always --no-user";
+      v   = "nvim";
+      lgt = "lazygit";
+      ldk = "lazydocker";
+    } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+      bat = "batcat";
+    };
+
+    sessionVariables = {
+      VISUAL = "nvim";
+      EDITOR = "nvim";
+    } // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
+      DOCKER_HOST = "unix:///var/run/docker.sock";
+    };
+
+    initContent = lib.mkBefore ''source ~/.config/zsh/config.zsh'';
   };
 
   home.packages = with pkgs; [
     # Core
     chezmoi
+    zsh-powerlevel10k
     neovim
     vim
     git
@@ -70,7 +88,7 @@
     tmux
     alacritty
     yazi
- 
+
     # Development
 
     ## Python
@@ -109,7 +127,9 @@
     nmap
 
     # Fonts
-    # (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
+    noto-fonts
+    noto-fonts-color-emoji
+    nerd-fonts.meslo-lg
   ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
     # WM
     i3

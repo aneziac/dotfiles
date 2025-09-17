@@ -1,3 +1,5 @@
+README.md
+
 {{ if eq .chezmoi.os "darwin" }}
 .config/i3
 .config/picom
@@ -8,7 +10,7 @@
 .Xresources
 {{ end }}
 
-{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.ID "linuxmint") }}
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") }}
 .config/i3
 .config/picom
 .config/polybar
