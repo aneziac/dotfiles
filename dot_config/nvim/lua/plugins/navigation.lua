@@ -13,6 +13,7 @@ return {
       {
         '<F1>',
         function()
+          require('aerial').close()
           require('neo-tree.command').execute({ toggle = true })
         end,
         desc = 'NeoTree toggle',
@@ -58,6 +59,34 @@ return {
     end,
   },
   {
+    'stevearc/aerial.nvim',
+    opts = {
+      backends = { "treesitter", "lsp", "markdown", "man" },
+      layout = {
+        max_width = { 40, 0.2 },
+        width = nil,
+        min_width = 10,
+        placement = "window",
+      },
+    },
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
+    keys = {
+      {
+        '<F2>',
+        function()
+          -- Close neotree if open
+          vim.cmd('Neotree close')
+          -- Toggle aerial
+          require('aerial').toggle()
+        end,
+        desc = 'Aerial toggle',
+      },
+    },
+  },
+  {
     "christoomey/vim-tmux-navigator",
     cmd = {
       "TmuxNavigateLeft",
@@ -76,4 +105,3 @@ return {
     },
   },
 }
-

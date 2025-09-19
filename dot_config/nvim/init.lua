@@ -56,7 +56,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { 
+vim.opt.listchars = {
   tab = '» ',
   trail = '·',
   nbsp = '␣',
@@ -148,12 +148,24 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local save_cursor = vim.fn.getpos(".")
+
+    -- Remove trailing whitespace
+    vim.cmd([[%s/\s\+$//e]])
+
+    -- Restore cursor position
+    vim.fn.setpos(".", save_cursor)
+  end,
+})
+
 require('lazy').setup {
   require 'plugins.ai',
   require 'plugins.autocomplete',
   require 'plugins.autopairs',
   require 'plugins.debug',
-  -- require 'plugins.format',
   require 'plugins.gitsigns',
   require 'plugins.indent_line',
   require 'plugins.keybinds',
