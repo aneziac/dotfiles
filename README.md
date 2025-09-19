@@ -27,16 +27,16 @@ Setup steps on new machine:
     (remove --daemon for MacOS) to install nix, then
 
     ```zsh
-    nix run home-manager/master -- switch --flake .#linux
+    nix run home-manager/master -- switch --flake .#mint
     ```
 
     Note after this initial setup, future runs can use just
 
     ```zsh
-    home-manager switch --flake .#linux
+    home-manager switch --flake .#mint
     ```
 
-    where in both cases replace `linux` with `macos` as needed.
+    where in both cases replace `mint` with `arch` or `macos` as needed.
     This installs all base packages and sets up `zsh`.
 
 4. Now that you can decrypt the `.ssh` GH private key, apply and change the chezmoi remote to use ssh:
@@ -46,6 +46,13 @@ Setup steps on new machine:
     git remote set-url origin git@github.com:aneziac/dotfiles.git
     ```
 
+5. Add hostess to sudoers (to prevent distractions)
+
+    ```zsh
+    echo "$USER ALL=(ALL) NOPASSWD: $(which hostess)" | sudo tee /etc/sudoers.d/hostess
+    ```
+
 TO DO
 
 - View previous revisions of file in nvim
+- Remove trailing whitespace on save

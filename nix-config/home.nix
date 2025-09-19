@@ -78,6 +78,7 @@ in {
     scooter
     spotify-player
     zathura
+    timewarrior
 
     # Containers / builds
     docker

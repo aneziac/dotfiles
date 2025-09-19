@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Stolen from sylvan franklin
+
+if ! tmux list-sessions &>/dev/null; then
+    echo "Start tmux first"
+    exit 1
+fi
+
+HOSTESS_CMD=$(which hostess)
+
+CATEGORIES=(
+    "SCHOOL"
+    "CAREER"
+    "CODING"
+    "WASTE"
+    "STOP"
+)
+
+selected=$(printf "%s\n" "${CATEGORIES[@]}" | fzf --bind 'q:abort')
+fzf_status=$?
+
+if [[ $fzf_status -ne 0 || -z "$selected" ]]; then
+    exit 0
+fi
+
+tmux set -g status-interval 5
+
+if [[ "$selected" == "STOP" ]]; then
+    timew stop
+    tmux set -g status-left "#[fg=#98971a]#[bold] #S"
+else
+    timew start "$selected"
+    tmux set -g status-left "#[fg=#98971a]#[bold] #S - $selected #(timew | awk '/^ *Total/ {print \$NF}')"
+
+        if [[ "$selected" == "WASTE" ]]; then
+            sudo "$HOSTESS_CMD" rm www.youtube.com
+            sudo "$HOSTESS_CMD" rm www.reddit.com
+            sudo "$HOSTESS_CMD" rm www.linkedin.com
+        else
+            sudo "$HOSTESS_CMD" add www.youtube.com  127.0.0.1
+            sudo "$HOSTESS_CMD" add www.reddit.com   127.0.0.1
+            sudo "$HOSTESS_CMD" add www.linkedin.com 127.0.0.1
+        fi
+fi
