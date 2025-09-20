@@ -87,6 +87,40 @@ return {
     },
   },
   {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  {
+    "fnune/recall.nvim",
+    version = "*",
+    config = function()
+      local recall = require("recall")
+
+      recall.setup({})
+      vim.keymap.set("n", "<leader>mm", recall.toggle, { noremap = true, silent = true, desc = "Toggle recall marks" })
+      vim.keymap.set("n", "<leader>mn", recall.goto_next, { noremap = true, silent = true, desc = "Go to next recall mark" })
+      vim.keymap.set("n", "<leader>mp", recall.goto_prev, { noremap = true, silent = true, desc = "Go to previous recall mark" })
+      vim.keymap.set("n", "<leader>mc", recall.clear, { noremap = true, silent = true, desc = "Clear recall marks" })
+      vim.keymap.set("n", "<leader>ml", ":Telescope recall<CR>", { noremap = true, silent = true })
+    end
+  },
+  {
+    "fasterius/simple-zoom.nvim",
+    opts = {
+        hide_tabline = true
+    },
+  },
+  {
     "christoomey/vim-tmux-navigator",
     cmd = {
       "TmuxNavigateLeft",

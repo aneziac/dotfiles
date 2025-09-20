@@ -19,13 +19,6 @@ return {
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      require('lspconfig')['tinymist'].setup {
-        settings = {
-          formatterMode = 'typstyle',
-          exportPdf = 'onType',
-          semanticTokens = 'disable',
-        },
-      }
 
       --  This function gets run when an LSP attaches to a particular buffer.
       --    That is to say, every time a new file is opened that is associated with
@@ -78,7 +71,9 @@ return {
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
+          -- For normal and visual mode, set up separate mappings
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', 'n')
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', 'x')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -142,8 +137,6 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-      local util = require('lspconfig.util')
-
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
       --
@@ -156,9 +149,7 @@ return {
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {
-        --  root_dir = util.root_pattern('pyrightconfig.json', '.git'),
-        },
+        pyright = {},
         rust_analyzer = {},
         ts_ls = {},
         tinymist = {
@@ -196,19 +187,18 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig')
-        .setup {
-          handlers = {
-            function(server_name)
-              local server = servers[server_name] or {}
-              -- This handles overriding only values explicitly passed
-              -- by the server configuration above. Useful when disabling
-              -- certain features of an LSP (for example, turning off formatting for ts_ls)
-              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-              require('lspconfig')[server_name].setup(server)
-            end,
-          },
-        }
+      require('mason-lspconfig').setup {
+        ensure_installed = vim.tbl_keys(servers),
+        automatic_enable = false, -- We'll configure servers manually
+      }
+
+      -- Configure each server with vim.lsp.config
+      for server_name, server_config in pairs(servers) do
+        local config = vim.tbl_deep_extend('force', {
+          capabilities = capabilities,
+        }, server_config)
+        vim.lsp.config[server_name] = config
+      end
     end,
   },
   {

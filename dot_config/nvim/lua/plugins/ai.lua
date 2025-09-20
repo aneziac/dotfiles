@@ -1,6 +1,9 @@
 return {
   {
     'NickvanDyke/opencode.nvim',
+    dependencies = {
+      { 'folke/snacks.nvim', opts = { input = { enabled = true } } },
+    },
     config = function()
       vim.opt.autoread = true
 
