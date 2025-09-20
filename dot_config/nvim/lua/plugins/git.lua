@@ -1,5 +1,37 @@
 return {
   {
+    'sindrets/diffview.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('diffview').setup({
+        enhanced_diff_hl = true,
+        view = {
+          default = {
+            layout = 'diff2_horizontal',
+          },
+          merge_tool = {
+            layout = 'diff3_horizontal',
+          },
+        },
+      })
+
+      -- Diffview keybinds
+      vim.keymap.set('n', '<leader>hd', '<cmd>DiffviewOpen<cr>', { desc = 'git [d]iff against index' })
+      vim.keymap.set('n', '<leader>hc', '<cmd>DiffviewClose<cr>', { desc = 'git [c]lose diffview' })
+
+      -- Revision navigation
+      vim.keymap.set('n', '<leader>h1', '<cmd>DiffviewOpen HEAD~1<cr>', { desc = 'git diff against 1 commit ago' })
+      vim.keymap.set('n', '<leader>h2', '<cmd>DiffviewOpen HEAD~2<cr>', { desc = 'git diff against 2 commits ago' })
+      vim.keymap.set('n', '<leader>h3', '<cmd>DiffviewOpen HEAD~3<cr>', { desc = 'git diff against 3 commits ago' })
+      vim.keymap.set('n', '<leader>h4', '<cmd>DiffviewOpen HEAD~4<cr>', { desc = 'git diff against 4 commits ago' })
+      vim.keymap.set('n', '<leader>h5', '<cmd>DiffviewOpen HEAD~5<cr>', { desc = 'git diff against 5 commits ago' })
+
+      -- File history
+      vim.keymap.set('n', '<leader>hh', '<cmd>DiffviewFileHistory %<cr>', { desc = 'File history in diffview' })
+      vim.keymap.set('n', '<leader>hH', '<cmd>DiffviewFileHistory<cr>', { desc = 'Project history in diffview' })
+    end,
+  },
+  {
     'lewis6991/gitsigns.nvim',
     opts = {
       signs = {
@@ -52,10 +84,7 @@ return {
         map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'git [R]eset buffer' })
         map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'git [p]review hunk' })
         map('n', '<leader>hb', gitsigns.blame_line, { desc = 'git [b]lame line' })
-        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'git [d]iff against index' })
-        map('n', '<leader>hD', function()
-          gitsigns.diffthis '@'
-        end, { desc = 'git [D]iff against last commit' })
+
         -- Toggles
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
         map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle git show [D]eleted' })

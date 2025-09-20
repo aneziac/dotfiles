@@ -106,6 +106,9 @@ vim.keymap.set('n', '<leader>tw', function()
   vim.wo.wrap = not vim.wo.wrap
 end, { desc = '[T]oggle [W]rap' })
 
+-- Reload current file
+vim.keymap.set('n', '<leader>e', '<cmd>edit<CR>', { desc = 'R[e]load current file' })
+
 -- Auto-detect and activate Python virtualenv in project
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
@@ -119,6 +122,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 vim.keymap.set('n', '<leader>so', function()
+  -- Run chezmoi apply first
+  vim.fn.system('chezmoi apply')
+
   -- Reload init.lua
   vim.cmd('source $MYVIMRC')
 
@@ -127,8 +133,8 @@ vim.keymap.set('n', '<leader>so', function()
     client.stop()
   end
   vim.cmd('edit') -- reopen current buffer to trigger LspAttach
-  print('Config reloaded and LSP servers restarted!')
-end, { desc = 'Source init.lua and restart LSP' })
+  print('Chezmoi applied, config reloaded and LSP servers restarted!')
+end, { desc = 'Apply chezmoi, source init.lua and restart LSP' })
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -166,7 +172,7 @@ require('lazy').setup {
   require 'plugins.autocomplete',
   require 'plugins.autopairs',
   require 'plugins.debug',
-  require 'plugins.gitsigns',
+  require 'plugins.git',
   require 'plugins.indent_line',
   require 'plugins.keybinds',
   require 'plugins.lint',
