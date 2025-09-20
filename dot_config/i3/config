@@ -103,7 +103,7 @@ bindsym XF86AudioMicMute     exec --no-startup-id wpctl set-mute   @DEFAULT_AUDI
 ## Restart / exit i3
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+c restart
-bindsym $mod+Shift+e exec --no-startup-id i3-nagbar -t warning -m 'Exit i3?' -b 'Yes' 'i3-msg exit'
+bindsym $mod+Shift+e exec --no-startup-id ~/.local/bin/powermenu
 
 # Start monitors -> wallpaper -> polybar in order
 exec_always --no-startup-id ~/.config/i3/start-session.sh

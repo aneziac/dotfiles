@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+options=" Shutdown\n Lock\n Suspend\n Hibernate\n Reboot\n Logout"
+
+chosen=$(echo -e "$options" | rofi -dmenu -i -p "Power Menu" -theme-str '
+window {
+    width: 800px;
+    height: 600px;
+}
+listview {
+    lines: 6;
+}
+element {
+    padding: 20px;
+}')
+
+case $chosen in
+    " Shutdown")
+        systemctl poweroff
+        ;;
+    " Lock")
+        i3lock
+        ;;
+    " Suspend")
+        systemctl suspend
+        ;;
+    " Hibernate")
+        systemctl hibernate
+        ;;
+    " Reboot")
+        systemctl reboot
+        ;;
+    " Logout")
+        i3-msg exit
+        ;;
+esac
