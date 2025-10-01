@@ -1,3 +1,16 @@
+local function toggle_preview()
+  local filetype = vim.bo.filetype
+  if filetype == "markdown" then
+    vim.cmd("MarkdownPreviewToggle")
+  elseif filetype == "typst" then
+    vim.cmd("TypstPreviewToggle")
+  else
+    vim.notify("Preview not supported for filetype: " .. filetype, vim.log.levels.WARN)
+  end
+end
+
+vim.keymap.set('n', '<leader>p', toggle_preview, { desc = "Toggle preview" })
+
 return {
   {
     'chomosuke/typst-preview.nvim',
