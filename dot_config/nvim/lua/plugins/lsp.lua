@@ -136,6 +136,8 @@ return {
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      capabilities.general = capabilities.general or {}
+      capabilities.general.positionEncodings = { 'utf-16', 'utf-8' }
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -189,7 +191,7 @@ return {
 
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers),
-        automatic_enable = false, -- We'll configure servers manually
+        automatic_enable = true,
       }
 
       -- Configure each server with vim.lsp.config
