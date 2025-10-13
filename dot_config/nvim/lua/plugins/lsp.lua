@@ -149,9 +149,11 @@ return {
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        pyright = {},
+        clangd = {},
+        gopls = {},
+        pyright = {
+        --  root_dir = util.root_pattern('pyrightconfig.json', '.git'),
+        },
         rust_analyzer = {},
         ts_ls = {},
         tinymist = {
@@ -191,7 +193,6 @@ return {
 
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(servers),
-        automatic_enable = true,
       }
 
       -- Configure each server with vim.lsp.config
@@ -200,6 +201,7 @@ return {
           capabilities = capabilities,
         }, server_config)
         vim.lsp.config[server_name] = config
+        vim.lsp.enable(server_name)
       end
     end,
   },

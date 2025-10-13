@@ -67,7 +67,6 @@ in {
     bat
     lazygit
     lazydocker
-    binutils
     delta
     ripgrep
     fd
@@ -85,7 +84,7 @@ in {
     # Containers / builds
     docker
     just
-    terraform
+    # terraform
 
     # Media
     ffmpeg
@@ -114,8 +113,8 @@ in {
     clippy
 
     ## C/C++
-    valgrind
-    gdb
+    # valgrind
+    gef
     gnumake
     gcc
 
@@ -187,5 +186,5 @@ in {
     aerospace
   ];
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "25.05";
 }
