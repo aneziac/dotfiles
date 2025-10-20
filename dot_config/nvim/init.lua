@@ -1,8 +1,9 @@
+-- Leader config
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
--- Numbering different across different modes
+-- Numbering and cursor config
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -18,17 +19,19 @@ vim.api.nvim_create_autocmd({"InsertLeave"}, {
   end
 })
 
--- Enable mouse mode
-vim.opt.mouse = 'a'
+vim.opt.cursorline = true
+vim.opt.scrolloff = 15
 
--- Don't show the mode, since it's already in the status line
+-- Don't show the mode or tabline
 vim.opt.showmode = false
+vim.opt.showtabline = 0
 
 -- Sync clipboard between OS and Neovim.
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'
 end)
 
+-- Spelling config
 vim.opt.spell = true
 vim.opt.spelllang = 'en_us'
 
@@ -69,15 +72,6 @@ vim.opt.listchars = {
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 15
-
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -112,18 +106,7 @@ end, { desc = '[T]oggle [W]rap' })
 -- Reload current file
 vim.keymap.set('n', '<leader>e', '<cmd>edit<CR>', { desc = 'R[e]load current file' })
 
--- Auto-detect and activate Python virtualenv in project
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    local cwd = vim.loop.cwd()
-    local venv_path = cwd .. "/venv/bin/python"
-
-    if vim.fn.filereadable(venv_path) == 1 then
-      vim.g.python3_host_prog = venv_path
-    end
-  end,
-})
-
+-- Reload entire config
 vim.keymap.set('n', '<leader>so', function()
   -- Run chezmoi apply first
   vim.fn.system('chezmoi apply')
@@ -188,4 +171,4 @@ require('lazy').setup {
   require 'plugins.treesitter',
 }
 
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Pmenu" })  -- or use custom color
+vim.api.nvim_set_hl(0, "NormalFloat", { link = "Pmenu" })
