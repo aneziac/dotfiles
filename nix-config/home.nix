@@ -52,6 +52,7 @@ in {
     age
     vim
     git
+    git-lfs
     curl
     wget
     fzf
