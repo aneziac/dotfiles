@@ -12,7 +12,7 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # --- Launchers / Apps ---
 
-alt-enter = 'exec-and-forget open -na "Alacritty.app"'
+alt-enter = 'exec-and-forget open -na "Ghostty.app"'
 
 # --- Tmux-style splits & kill ---
 # bindsym $mod+Shift+apostrophe split v
