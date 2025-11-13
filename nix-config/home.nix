@@ -5,6 +5,8 @@ let
 
   isMint = mySystem == "mint";
   isArch = mySystem == "arch";
+
+  unstable = import <nixpkgs-unstable> {};
 in {
   programs.home-manager.enable = true;
 
@@ -120,7 +122,7 @@ in {
     gcc
 
     ## Misc
-    typst
+    unstable.typst
     go
     lua
 
@@ -187,5 +189,5 @@ in {
     aerospace
   ];
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "25.11";
 }
