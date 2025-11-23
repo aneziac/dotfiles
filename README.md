@@ -51,8 +51,3 @@ Setup steps on new machine:
     ```zsh
     echo "$USER ALL=(ALL) NOPASSWD: $(which hostess)" | sudo tee /etc/sudoers.d/hostess
     ```
-
-TO DO
-
-- View previous revisions of file in nvim
-- Remove trailing whitespace on save
