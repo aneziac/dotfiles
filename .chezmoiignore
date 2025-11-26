@@ -11,11 +11,13 @@ README.md
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
 dot_aerospace.toml
+.config/sketchybar
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
 dot_aerospace.toml
 .config/i3
+.config/sketchybar
 .config/picom
 .config/polybar
 .config/rofi
