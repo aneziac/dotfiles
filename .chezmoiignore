@@ -1,4 +1,5 @@
 README.md
+.ssh/known_hosts*
 
 {{ if eq .chezmoi.os "darwin" }}
 .config/i3
