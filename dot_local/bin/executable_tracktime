@@ -37,9 +37,11 @@ else
             sudo "$HOSTESS_CMD" rm www.youtube.com
             sudo "$HOSTESS_CMD" rm www.reddit.com
             sudo "$HOSTESS_CMD" rm www.linkedin.com
+            sudo "$HOSTESS_CMD" rm news.ycombinator.com
         else
-            sudo "$HOSTESS_CMD" add www.youtube.com  127.0.0.1
-            sudo "$HOSTESS_CMD" add www.reddit.com   127.0.0.1
-            sudo "$HOSTESS_CMD" add www.linkedin.com 127.0.0.1
+            sudo "$HOSTESS_CMD" add www.youtube.com      127.0.0.1
+            sudo "$HOSTESS_CMD" add www.reddit.com       127.0.0.1
+            sudo "$HOSTESS_CMD" add www.linkedin.com     127.0.0.1
+            sudo "$HOSTESS_CMD" add news.ycombinator.com 127.0.0.1
         fi
 fi

@@ -1,1 +1,3 @@
 theme = Gruvbox Dark
+macos-titlebar-proxy-icon = hidden
+background-opacity = 0.9

@@ -58,8 +58,6 @@ alt-ctrl-up    = 'resize height -50'
 # --- Layouts / Fullscreen ---
 alt-e = 'layout tiles horizontal vertical'
 alt-z = 'fullscreen'
-alt-s = 'layout v_accordion'
-alt-w = 'layout h_accordion'
 
 # --- Workspaces 1–9 ---
 alt-1 = 'workspace 1'
