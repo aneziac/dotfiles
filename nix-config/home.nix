@@ -1,4 +1,4 @@
-{ config, pkgs, lib, mySystem, ... }:
+{ config, pkgs, lib, mySystem, neovim-nightly, ... }:
 let
   isLinux  = pkgs.stdenv.isLinux;
   isDarwin = pkgs.stdenv.isDarwin;
@@ -50,7 +50,7 @@ in {
   home.packages = with pkgs; [
     # Core
     zsh-powerlevel10k
-    neovim
+    neovim-nightly
     age
     vim
     git
