@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TARGET_DIR="$HOME/code/qmk_firmware/keyboards/lily58/keymaps/nate"
+TARGET_DIR="$HOME/code/qmk_firmware/keyboards/boardsource/lulu/keymaps/nate"
 
 if [ ! -d "$HOME/code/qmk_firmware" ]; then
     echo "Error: QMK firmware directory not found at $HOME/code/qmk_firmware"
