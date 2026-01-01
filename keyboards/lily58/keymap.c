@@ -4,7 +4,6 @@ enum layer_number {
   _QWERTY,
   _NAV,
   _SYM,
-  _ADJUST,
 };
 
 #define NAV MO(_NAV)
@@ -22,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  C+A  |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |LCTRL |LGUI  |SYM   | /Space  /       \Enter \  |NAV   |BackSP| RAlt |
+ *                   |LCTRL |LGUI  | NAV  | /Space  /       \Enter \  | SYM  |BackSP| RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -44,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|   {   |    |  }    |------+------+------+------+------+------|
  * |      | S+Z  | SS+H | SS+J | SS+K | S+L  |-------|    |-------|  F5  |  F2  |  F3  |  F4  |  F7  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   |LCTRL |LGUI  |SYM   | /Space  /       \Enter \  |NAV   |BackSP| RAlt |
+ *                   |LCTRL | LGUI | NAV  | /Space  /       \Enter \  | SYM  |BackSP| RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -77,33 +76,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_QUES,     KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_PLUS,                      KC_EQL,  KC_COLN, KC_DQUO, KC_P4,   KC_P5,   KC_P6,
   XXXXXXX,     XXXXXXX, KC_PIPE, KC_LBRC, KC_RBRC, KC_UNDS, LCTL(KC_A), XXXXXXX, KC_LT,   KC_GT,   KC_P0,   KC_P1,   KC_P2,   KC_P3,
                                  _______, _______, _______, _______,    _______, _______, _______, _______
-),
-
-/* ADJUST
- * ,-----------------------------------------.                    ,-----------------------------------------.
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
- * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      |      |RGB ON| HUE+ | SAT+ | VAL+ |
- * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
- * `-----------------------------------------/       /     \      \-----------------------------------------'
- *                   | LAlt | LGUI |SYM   | /Space  /       \Enter \  |NAV   |BackSP| RGUI |
- *                   |      |      |      |/       /         \      \ |      |      |      |
- *                   `----------------------------'           '------''--------------------'
- */
-[_ADJUST] = LAYOUT(
-XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                           _______, _______, _______, _______, _______,  _______, _______, _______
-)
-
-};
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _NAV, _SYM, _ADJUST);
-}
+)};
 
