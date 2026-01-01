@@ -17,6 +17,8 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ~/.p10k.zsh
 
+# Path modifications
+export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Tool initializations

@@ -110,10 +110,7 @@ in {
     nodePackages.ts-node
 
     ## Rust
-    rustc
-    cargo
-    rustfmt
-    clippy
+    rustup
 
     ## C/C++
     # valgrind
