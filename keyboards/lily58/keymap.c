@@ -39,9 +39,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | CS+C | CS+V | S+H  | S+J  | S+K  | S+L  |                    | Home | PgDn | PgUp | End  |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | C+U  | C+D  | LEFT | DOWN | UP   | RIGHT|-------.    ,-------|   H  |  J   |  K   |  L   |      |      |
+ * | C+U  | C+D  | LEFT | DOWN | UP   | RIGHT|-------.    ,-------| C+H  | C+J  | C+K  | C+L  |      |      |
  * |------+------+------+------+------+------|   {   |    |  }    |------+------+------+------+------+------|
- * |      | S+Z  | SS+H | SS+J | SS+K | S+L  |-------|    |-------|  F5  |  F2  |  F3  |  F4  |  F7  |      |
+ * | F12  | S+Z  | SS+H | SS+J | SS+K | S+L  |-------|    |-------|  F2  |  F3  |  F4  |  F5  |  F6  |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |LCTRL | LGUI | NAV  | /Space  /       \Enter \  | SYM  |BackSP| RAlt |
  *                   |      |      |      |/       /         \      \ |      |      |      |
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F1,            LGUI(KC_1),       LGUI(KC_2),       LGUI(KC_3),       LGUI(KC_4),       LGUI(KC_5),                               LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), XXXXXXX,
   LCTL(LSFT(KC_C)), LCTL(LSFT(KC_V)), LGUI(KC_H),       LGUI(KC_J),       LGUI(KC_K),       LGUI(KC_L),                               KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     XXXXXXX,    XXXXXXX,
   LCTL(KC_U),       LCTL(KC_D),       KC_LEFT,          KC_DOWN,          KC_UP,            KC_RIGHT,                                 KC_H,       KC_J,       KC_K,       KC_L,       XXXXXXX,    XXXXXXX,
-  XXXXXXX,          LGUI(KC_Z),       LSFT(LGUI(KC_H)), LSFT(LGUI(KC_J)), LSFT(LGUI(KC_K)), LSFT(LGUI(KC_L)), KC_LCBR,    KC_RCBR,    KC_F5,      KC_F2,      KC_F3,      KC_F4,      KC_F7,      XXXXXXX,
+  KC_F12,           LGUI(KC_Z),       LSFT(LGUI(KC_H)), LSFT(LGUI(KC_J)), LSFT(LGUI(KC_K)), LSFT(LGUI(KC_L)), KC_LCBR,    KC_RCBR,    KC_F5,      KC_F2,      KC_F3,      KC_F4,      KC_F7,      XXXXXXX,
                                       _______,          _______,          _______,          _______,          _______,    _______,    _______,    _______
 ),
 

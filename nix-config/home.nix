@@ -102,6 +102,8 @@ in {
 
     ## Python
     python3
+    python3Packages.debugpy
+    python3Packages.ruff
     uv
 
     ## JS / TS
@@ -120,8 +122,17 @@ in {
 
     ## Misc
     unstable.typst
+    nodePackages.markdownlint-cli
     go
     lua
+
+    # LSP servers
+    lua-language-server
+    pyright
+    typescript-language-server
+    clang-tools
+    gopls
+    tinymist
 
     # UX
     neofetch

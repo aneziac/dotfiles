@@ -1,9 +1,5 @@
-return {
-  { -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = 'ibl',
-    opts = {},
-  },
-}
+vim.pack.add({
+  { src = 'https://github.com/lukas-reineke/indent-blankline.nvim' },
+})
+
+require('ibl').setup({})
