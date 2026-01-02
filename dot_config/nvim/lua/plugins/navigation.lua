@@ -1,10 +1,10 @@
 vim.pack.add({
   { src = 'https://github.com/stevearc/oil.nvim' },
-  { src = 'https://github.com/nvim-neo-tree/neo-tree.nvim' },
+  { src = 'https://github.com/folke/snacks.nvim' },
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
   { src = 'https://github.com/MunifTanjim/nui.nvim' },
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-  { src = 'https://github.com/stevearc/aerial.nvim' },
+  { src = 'https://github.com/folke/trouble.nvim' },
   { src = 'https://github.com/fnune/recall.nvim' },
   { src = 'https://github.com/christoomey/vim-tmux-navigator' },
 })
@@ -19,36 +19,10 @@ require('oil').setup({
 })
 vim.keymap.set('n', '-', require('oil').open, { desc = 'Open Oil' })
 
--- Neo-tree
-require('neo-tree').setup({
-  filesystem = {
-    window = {
-      mappings = { ['\\'] = 'close_window' },
-    },
-    filtered_items = {
-      visible = true,
-      hide_dotfiles = false,
-      hide_hidden = false,
-      never_show = { '.git' },
-    },
-  },
-})
-vim.keymap.set('n', '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal', silent = true })
-vim.keymap.set('n', '<F1>', ':Neotree toggle<CR>', { desc = 'NeoTree toggle', silent = true })
-
--- Aerial
-require('aerial').setup({
-  backends = { 'treesitter', 'lsp', 'markdown', 'man' },
-  layout = {
-    max_width = { 40, 0.2 },
-    min_width = 10,
-    placement = 'window',
-  },
-})
-vim.keymap.set('n', '<F12>', function()
-  vim.cmd('Neotree close')
-  require('aerial').toggle()
-end, { desc = 'Aerial toggle' })
+-- Trouble
+require('trouble').setup({})
+vim.keymap.set('n', '<leader>q', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics' })
+vim.keymap.set('n', '<F12>', '<cmd>Trouble symbols toggle<cr>', { desc = 'Symbols' })
 
 -- Recall
 require('recall').setup({})

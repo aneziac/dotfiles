@@ -1,4 +1,3 @@
--- plugins/keybinds.lua
 vim.pack.add({
   { src = 'https://github.com/folke/which-key.nvim' },
 })
@@ -7,7 +6,7 @@ require('which-key').setup({
   delay = 0,
   icons = { mappings = true },
   spec = {
-    { '<leader>c', group = 'Code', mode = { 'n', 'x' } },
+    { '<leader>c', group = 'Code',     mode = { 'n', 'x' } },
     { '<leader>d', group = 'Document' },
     { '<leader>r', group = 'Rename' },
     { '<leader>s', group = 'Search' },

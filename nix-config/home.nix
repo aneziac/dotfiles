@@ -103,7 +103,7 @@ in {
     ## Python
     python3
     python3Packages.debugpy
-    python3Packages.ruff
+    ruff
     uv
 
     ## JS / TS
@@ -125,6 +125,11 @@ in {
     nodePackages.markdownlint-cli
     go
     lua
+
+    # Formatters
+    stylua
+    nodePackages.prettier
+    typstyle
 
     # LSP servers
     lua-language-server

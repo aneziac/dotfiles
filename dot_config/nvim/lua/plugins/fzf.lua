@@ -17,4 +17,3 @@ vim.keymap.set('n', '<leader>/', require('fzf-lua').lgrep_curbuf, { desc = 'Sear
 vim.keymap.set('n', '<leader>sn', function()
   require('fzf-lua').files({ cwd = vim.fn.stdpath('config') })
 end, { desc = 'Search Neovim Config' })
-

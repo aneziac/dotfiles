@@ -23,9 +23,15 @@ dapui.setup({
   icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
   controls = {
     icons = {
-      pause = '⏸', play = '▶', step_into = '⏎', step_over = '⏭',
-      step_out = '⏮', step_back = 'b', run_last = '▶▶',
-      terminate = '⏹', disconnect = '⏏',
+      pause = '⏸',
+      play = '▶',
+      step_into = '⏎',
+      step_over = '⏭',
+      step_out = '⏮',
+      step_back = 'b',
+      run_last = '▶▶',
+      terminate = '⏹',
+      disconnect = '⏏',
     },
   },
 })
@@ -65,7 +71,7 @@ local function find_root(start_dir)
   return found and vim.fs.dirname(found) or vim.fn.getcwd()
 end
 
-local function py_launch_info()  -- For running python as a module
+local function py_launch_info() -- For running python as a module
   local bufpath = vim.api.nvim_buf_get_name(0)
   local bufdir = vim.fs.dirname(bufpath)
   local root = find_root(bufdir)
@@ -87,8 +93,14 @@ dap.configurations.python = {
     type = 'python',
     request = 'launch',
     name = 'Python: current file as module',
-    module = function() local _, mod = py_launch_info() return mod end,
-    cwd = function() local c, _ = py_launch_info() return c end,
+    module = function()
+      local _, mod = py_launch_info()
+      return mod
+    end,
+    cwd = function()
+      local c, _ = py_launch_info()
+      return c
+    end,
     justMyCode = false,
     console = 'integratedTerminal',
     pythonPath = function()

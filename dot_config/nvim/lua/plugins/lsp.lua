@@ -1,4 +1,3 @@
--- plugins/lsp.lua
 vim.pack.add({
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/j-hui/fidget.nvim' },
@@ -18,7 +17,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('gr', vim.lsp.buf.references, 'Goto References')
     map('gI', vim.lsp.buf.implementation, 'Goto Implementation')
     map('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-    map('lf', vim.lsp.buf.format)
     map('K', vim.lsp.buf.hover, 'Hover')
     map('<leader>rn', vim.lsp.buf.rename, 'Rename')
     map('<leader>ca', vim.lsp.buf.code_action, 'Code Action', { 'n', 'x' })
