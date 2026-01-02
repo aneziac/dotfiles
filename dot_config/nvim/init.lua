@@ -12,6 +12,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.wo.wrap = false
 vim.g.have_nerd_font = true
+vim.opt.showmode = false
 
 -- Whitespace
 vim.opt.list = true
