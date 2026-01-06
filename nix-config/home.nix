@@ -129,7 +129,6 @@ in {
     # Formatters
     stylua
     nodePackages.prettier
-    typstyle
 
     # LSP servers
     lua-language-server
@@ -137,7 +136,7 @@ in {
     typescript-language-server
     clang-tools
     gopls
-    tinymist
+    unstable.tinymist
 
     # UX
     neofetch
