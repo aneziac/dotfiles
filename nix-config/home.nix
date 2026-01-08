@@ -50,7 +50,6 @@ in {
   home.packages = with pkgs; [
     # Core
     zsh-powerlevel10k
-    neovim-nightly
     age
     vim
     git
@@ -151,6 +150,7 @@ in {
 
   ] ++ lib.optionals isLinux [
     # System
+    neovim-nightly
     bluez
     bluez-tools
     pavucontrol
