@@ -16,6 +16,15 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none', fg = 'none' })
 -- Statusline
 require('lualine').setup({
   options = { theme = 'gruvbox_dark' },
+  tabline = {
+    lualine_a = {
+      {
+        "tabs",
+        mode = 1,
+        max_length = vim.o.columns,
+      }
+    }
+  }
 })
 
 -- Dashboard
