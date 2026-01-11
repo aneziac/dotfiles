@@ -64,6 +64,7 @@ in {
     du-dust
     tldr
     atuin
+    ngrok
     eza
     zoxide
     bat
@@ -100,8 +101,10 @@ in {
     # Development
 
     ## Python
-    python3
-    python3Packages.debugpy
+    (python3.withPackages (ps: with ps; [
+      debugpy
+      jupyter
+    ]))
     ruff
     uv
 
@@ -110,13 +113,11 @@ in {
     typescript
     nodePackages.ts-node
 
-    ## Rust
+    ## Rust, C/C++
     rustup
-
-    ## C/C++
-    # valgrind
     gef
     gnumake
+    pkg-config
     gcc
 
     ## Misc
@@ -199,7 +200,24 @@ in {
 
   ] ++ lib.optionals isDarwin [
     aerospace
+    colima
+    sketchybar
   ];
+
+  home.activation = {
+    rustupSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if ! ${pkgs.rustup}/bin/rustup toolchain list 2>/dev/null | grep -q "(default)"; then
+        $DRY_RUN_CMD ${pkgs.rustup}/bin/rustup default stable
+        $DRY_RUN_CMD ${pkgs.rustup}/bin/rustup component add rust-analyzer
+      fi
+    '';
+
+    brewBundle = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      if [ -f $HOME/.Brewfile ]; then
+        $DRY_RUN_CMD /opt/homebrew/bin/brew bundle --global
+      fi
+    '';
+  };
 
   home.stateVersion = "25.11";
 }

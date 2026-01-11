@@ -12,11 +12,13 @@ README.md
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
 dot_aerospace.toml
+.Brewfile
 .config/sketchybar
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
 dot_aerospace.toml
+.Brewfile
 .config/i3
 .config/sketchybar
 .config/picom

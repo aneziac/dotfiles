@@ -15,7 +15,7 @@ Setup steps on new machine:
 2. Clone dotfiles with
 
     ```zsh
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aneziac
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aneziac -b $HOME/.local/bin
     ```
 
 3. `cd` into `nix-config` and run
@@ -27,13 +27,13 @@ Setup steps on new machine:
     (remove --daemon for MacOS) to install nix, then
 
     ```zsh
-    nix run home-manager/master -- switch --flake .#mint
+    nix run home-manager/master -- switch --flake .#mint --impure
     ```
 
     Note after this initial setup, future runs can use just
 
     ```zsh
-    home-manager switch --flake .#mint
+    home-manager switch --flake .#mint --impure
     ```
 
     where in both cases replace `mint` with `arch` or `macos` as needed.
