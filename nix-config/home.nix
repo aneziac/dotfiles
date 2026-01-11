@@ -199,9 +199,7 @@ in {
     zoom-us
 
   ] ++ lib.optionals isDarwin [
-    aerospace
     colima
-    sketchybar
   ];
 
   home.activation = {
