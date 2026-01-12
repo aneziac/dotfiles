@@ -33,6 +33,7 @@ in {
       v   = "nvim";
       lgt = "lazygit";
       ldk = "lazydocker";
+      dsh = "nix-shell --run zsh";
     } // lib.optionalAttrs (!isDarwin) {
       bat = "batcat";
     };
