@@ -61,7 +61,7 @@ in {
 
     # Helpful nonessential CLI utils
     tree
-    du-dust
+    dust
     tldr
     atuin
     ngrok
@@ -111,7 +111,6 @@ in {
     ## JS / TS
     nodejs
     typescript
-    nodePackages.ts-node
 
     ## Rust, C/C++
     rustup
