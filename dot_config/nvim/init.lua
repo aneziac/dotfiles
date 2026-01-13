@@ -43,6 +43,7 @@ vim.keymap.set('n', '<C-Down>', '<Cmd>resize -2<CR>')
 vim.keymap.set('n', '<C-Left>', '<Cmd>vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', '<Cmd>vertical resize +2<CR>')
 
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic Quickfix list' })
 vim.keymap.set('n', '<leader>tw', function() vim.wo.wrap = not vim.wo.wrap end, { desc = 'Toggle Wrap' })
 vim.keymap.set('n', '<leader>e', '<cmd>edit<CR>', { desc = 'Reload current file' })
 

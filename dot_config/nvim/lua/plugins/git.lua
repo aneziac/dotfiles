@@ -15,9 +15,6 @@ require('diffview').setup({
 
 vim.keymap.set('n', '<leader>hd', '<cmd>DiffviewOpen<cr>', { desc = 'Diff against index' })
 vim.keymap.set('n', '<leader>hc', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' })
-vim.keymap.set('n', '<leader>h1', '<cmd>DiffviewOpen HEAD~1<cr>', { desc = 'Diff HEAD~1' })
-vim.keymap.set('n', '<leader>h2', '<cmd>DiffviewOpen HEAD~2<cr>', { desc = 'Diff HEAD~2' })
-vim.keymap.set('n', '<leader>h3', '<cmd>DiffviewOpen HEAD~3<cr>', { desc = 'Diff HEAD~3' })
 vim.keymap.set('n', '<leader>hh', '<cmd>DiffviewFileHistory %<cr>', { desc = 'File history' })
 vim.keymap.set('n', '<leader>hH', '<cmd>DiffviewFileHistory<cr>', { desc = 'Project history' })
 

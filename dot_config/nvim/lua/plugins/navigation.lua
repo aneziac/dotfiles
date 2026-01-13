@@ -21,7 +21,7 @@ vim.keymap.set('n', '-', require('oil').open, { desc = 'Open Oil' })
 
 -- Trouble
 require('trouble').setup({})
-vim.keymap.set('n', '<leader>q', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics' })
+vim.keymap.set('n', '<leader>d', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics' })
 vim.keymap.set('n', '<F12>', '<cmd>Trouble symbols toggle<cr>', { desc = 'Symbols' })
 
 -- Recall
