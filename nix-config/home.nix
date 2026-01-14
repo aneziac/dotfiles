@@ -83,7 +83,6 @@ in {
     zathura
     timewarrior
     hostess
-    opencode
 
     # Containers / builds
     docker

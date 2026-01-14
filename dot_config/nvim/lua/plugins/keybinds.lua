@@ -14,6 +14,6 @@ require('which-key').setup({
     { '<leader>t', group = 'Toggle' },
     { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
     { '<leader>m', group = 'Marks' },
-    { '<leader>o', group = 'Opencode' },
+    { '<leader>a', group = 'AI' },
   },
 })

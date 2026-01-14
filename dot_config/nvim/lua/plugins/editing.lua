@@ -1,5 +1,5 @@
 vim.pack.add({
-  { src = 'https://github.com/NickvanDyke/opencode.nvim' },
+  { src = 'https://github.com/folke/sidekick.nvim' },
   { src = 'https://github.com/folke/snacks.nvim' },
   { src = 'https://github.com/saghen/blink.cmp' },
   { src = 'https://github.com/windwp/nvim-autopairs' },
@@ -14,7 +14,25 @@ local npairs = require('nvim-autopairs')
 local Rule = require('nvim-autopairs.rule')
 
 npairs.setup({})
-npairs.add_rule(Rule('$', '$', { 'typst', 'tex', 'latex', 'markdown' }))
+npairs.add_rule(Rule('$', '$', { 'typst', 'tex', 'latex', 'markdown' })
+  :with_move(function(opts) return opts.char == '$' end))
+
+-- Sidekick
+vim.lsp.enable('copilot')
+require('sidekick').setup({
+  cli = {
+    mux = {
+      backend = "tmux",
+      enabled = true,
+    },
+  },
+})
+
+vim.keymap.set('n', '<leader>aa', function() require('sidekick.cli').toggle() end, { desc = 'Sidekick Toggle' })
+vim.keymap.set('n', '<leader>as', function() require('sidekick.cli').select() end, { desc = 'Select CLI Tool' })
+vim.keymap.set({'n', 'x'}, '<leader>at', function() require('sidekick.cli').send({ msg = '{this}' }) end, { desc = 'Send This' })
+vim.keymap.set('x', '<leader>av', function() require('sidekick.cli').send({ msg = '{selection}' }) end, { desc = 'Send Selection' })
+vim.keymap.set('n', '<leader>af', function() require('sidekick.cli').send({ msg = '{file}' }) end, { desc = 'Send File' })
 
 -- Blink
 require('blink.cmp').setup({
@@ -23,6 +41,12 @@ require('blink.cmp').setup({
     ['<C-p>'] = { 'select_prev', 'fallback' },
     ['<C-y>'] = { 'accept', 'fallback' },
     ['<C-space>'] = { 'show', 'fallback' },
+    ["<Tab>"] = {
+      "snippet_forward",
+      function() return require("sidekick").nes_jump_or_apply() end,
+      function() return vim.lsp.inline_completion.get() end,
+      "fallback",
+    },
   },
   sources = {
     default = { 'lsp', 'path', 'buffer' },
@@ -42,15 +66,3 @@ Snacks.setup({
 vim.keymap.set('n', '\\', function() Snacks.explorer() end, { desc = 'Explorer' })
 vim.keymap.set('n', '<F1>', function() Snacks.explorer() end, { desc = 'Explorer' })
 vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit() end, { desc = 'Lazygit' })
-
--- Opencode
-vim.keymap.set('n', '<leader>oA', function() require('opencode').ask() end,
-  { desc = 'Ask opencode' })
-vim.keymap.set('n', '<leader>oa', function() require('opencode').ask('@cursor: ') end,
-  { desc = 'Ask opencode about this' })
-vim.keymap.set('v', '<leader>oa', function() require('opencode').ask('@selection: ') end,
-  { desc = 'Ask opencode about selection' })
-vim.keymap.set('n', '<leader>oy', function() require('opencode').command('messages_copy') end,
-  { desc = 'Copy last opencode response' })
-vim.keymap.set({ 'n', 'v' }, '<leader>os', function() require('opencode').select() end,
-  { desc = 'Select opencode prompt' })
