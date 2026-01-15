@@ -51,3 +51,6 @@ Setup steps on new machine:
     ```zsh
     echo "$USER ALL=(ALL) NOPASSWD: $(which hostess)" | sudo tee /etc/sudoers.d/hostess
     ```
+
+TODO:
+- automatic keyd setup; also should be managed via nix

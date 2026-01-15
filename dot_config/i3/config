@@ -27,9 +27,6 @@ client.unfocused        $bg      $bg     $muted   $bg       $bg
 client.focused_inactive $bg2     $bg     $muted   $bg2      $bg2
 client.urgent           $red     $red    $bg      $red      $red
 
-# Caps -> Esc
-exec_always --no-startup-id setxkbmap -option caps:escape
-
 ## Input / misc
 floating_modifier $mod
 
