@@ -4,6 +4,7 @@ vim.pack.add({
   { src = 'https://github.com/saghen/blink.cmp' },
   { src = 'https://github.com/windwp/nvim-autopairs' },
   { src = 'https://github.com/kylechui/nvim-surround' },
+  { src = 'https://github.com/nvim-mini/mini.nvim' },
 })
 
 -- Nvim surround
@@ -16,6 +17,14 @@ local Rule = require('nvim-autopairs.rule')
 npairs.setup({})
 npairs.add_rule(Rule('$', '$', { 'typst', 'tex', 'latex', 'markdown' })
   :with_move(function(opts) return opts.char == '$' end))
+
+-- Mini
+require('mini.ai').setup({
+  n_lines = 500,
+  custom_textobjects = {
+    ['$'] = { '%$().-()%$' },
+  },
+})
 
 -- Sidekick
 vim.lsp.enable('copilot')
