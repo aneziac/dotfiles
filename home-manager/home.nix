@@ -1,4 +1,5 @@
-{ config, pkgs, lib, mySystem, neovim-nightly, ... }:
+{ config, pkgs, lib, mySystem, self, neovim-nightly, ... }:
+
 let
   isLinux  = pkgs.stdenv.isLinux;
   isDarwin = pkgs.stdenv.isDarwin;
@@ -7,6 +8,10 @@ let
   isArch = mySystem == "arch";
 
   unstable = import <nixpkgs-unstable> {};
+
+  devPackages = (import (self + "/shells/dev.nix") { inherit pkgs; }).buildInputs;
+  cppPackages = (import (self + "/shells/cpp.nix") { inherit pkgs; }).buildInputs;
+  pyPackages  = (import (self + "/shells/py.nix")  { inherit pkgs; }).buildInputs;
 in {
   programs.home-manager.enable = true;
 
@@ -14,19 +19,18 @@ in {
   home.homeDirectory = if isDarwin then "/Users/Nate" else "/home/nate";
 
   nixpkgs.config.allowUnfree = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
+    plugins = [{
+      name = "powerlevel10k";
+      src = pkgs.zsh-powerlevel10k;
+      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    }];
 
     shellAliases = {
       l   = "eza --color=always --long --icons=always --no-user";
@@ -48,158 +52,110 @@ in {
     initContent = lib.mkBefore ''source ~/.config/zsh/config.zsh'';
   };
 
-  home.packages = with pkgs; [
-    # Core
-    zsh-powerlevel10k
-    age
-    vim
-    git
-    git-lfs
-    curl
-    wget
-    fzf
-    unzip
+  home.packages =
+    devPackages ++ cppPackages ++ pyPackages
 
-    # Helpful nonessential CLI utils
-    tree
-    dust
-    tldr
-    atuin
-    ngrok
-    eza
-    zoxide
-    bat
-    lazygit
-    lazydocker
-    delta
-    ripgrep
-    fd
-    jq
-    yq
-    gh
-    htop
-    scooter
-    spotify-player
-    zathura
-    timewarrior
-    hostess
+    ++ (with pkgs; [
+      # Container & build tools
+      docker
+      just
+      lazydocker
 
-    # Containers / builds
-    docker
-    just
-    # terraform
+      # Media processing
+      ffmpeg
+      imagemagick
+      p7zip
 
-    # Media
-    ffmpeg
-    imagemagick
-    p7zip
+      # Terminal utilities
+      yazi
+      ngrok
+      scooter
+      spotify-player
+      zathura
+      timewarrior
+      hostess
 
-    # Terminal
-    tmux
-    yazi
+      # Languages & tools
+      nodejs
+      typescript
+      rustup
+      go
+      lua
+      unstable.typst
 
-    # Development
+      # Formatters
+      stylua
+      nodePackages.prettier
+      nodePackages.markdownlint-cli
 
-    ## Python
-    (python3.withPackages (ps: with ps; [
-      debugpy
-      jupyter
-    ]))
-    ruff
-    uv
+      # LSP servers
+      lua-language-server
+      typescript-language-server
+      gopls
+      unstable.tinymist
 
-    ## JS / TS
-    nodejs
-    typescript
+      # Misc
+      neofetch
+      nmap
 
-    ## Rust, C/C++
-    rustup
-    gef
-    gnumake
-    pkg-config
-    gcc
+      # Fonts
+      noto-fonts
+      noto-fonts-color-emoji
+      nerd-fonts.meslo-lg
+    ]
 
-    ## Misc
-    unstable.typst
-    nodePackages.markdownlint-cli
-    go
-    lua
+    ++ lib.optionals isLinux [
+      bluez
+      bluez-tools
+      pavucontrol
+    ]
 
-    # Formatters
-    stylua
-    nodePackages.prettier
+    ++ lib.optionals isMint [
+      i3
+      (polybar.override {
+        i3Support = true;
+        pulseSupport = true;
+      })
+      picom
+      rofi
+      playerctl
+      brightnessctl
+    ]
 
-    # LSP servers
-    lua-language-server
-    pyright
-    typescript-language-server
-    clang-tools
-    gopls
-    unstable.tinymist
+    ++ lib.optionals isArch [
+      # WM
+      niri
+      waybar
+      fuzzel
+      mako
 
-    # UX
-    neofetch
+      # Utils
+      grim
+      slurp
+      wl-clipboard
 
-    # Networking
-    nmap
+      # GUI
+      alacritty
+      firefox
+      code
+      spotify
+      discord
+      bitwarden-desktop
+      gpick
+      gthumb
+      xournalpp
+      libreoffice-qt6-fresh
+      obs-studio
+      steam
+      whatsapp-electron
+      gimp3
+      zoom-us
+    ]
 
-    # Fonts
-    noto-fonts
-    noto-fonts-color-emoji
-    nerd-fonts.meslo-lg
-
-  ] ++ lib.optionals isLinux [
-    # System
-    neovim-nightly
-    bluez
-    bluez-tools
-    pavucontrol
-
-  ] ++ lib.optionals isMint [
-    # WM
-    i3
-    (polybar.override {
-      i3Support = true;
-      pulseSupport = true;
-    })
-    picom
-    rofi
-    # UX
-    playerctl
-    brightnessctl
-
-  ] ++ lib.optionals isArch [
-    # WM
-    niri
-    waybar
-    fuzzel
-    mako
-
-    # Utils
-    grim
-    slurp
-    wl-clipboard
-
-    # GUI
-    alacritty
-    firefox
-    code
-    spotify
-    discord
-    bitwarden-desktop
-    gpick
-    gthumb
-    xournalpp
-    libreoffice-qt6-fresh
-    obs-studio
-    steam
-    whatsapp-electron
-    gimp3
-    zoom-us
-
-  ] ++ lib.optionals isDarwin [
-    colima
-  ];
+    ++ lib.optionals isDarwin [
+      colima
+    ]
+  );
 
   home.activation = {
     rustupSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''

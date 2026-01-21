@@ -65,7 +65,7 @@ Current machines:
     sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply aneziac
     ```
 
-3. Either install nix and jump into development shell via `devsh`, or, for better containerization, build the development Docker container with
+3. Either install nix and jump into development shell, or, for better containerization, build the development Docker container with
 
     ```zsh
     nix build .#devContainer
@@ -78,7 +78,7 @@ Current machines:
     ssh ucsb-pod
     gunzip dev-env.tar.gz
     apptainer build --fakeroot dev-env.sif docker-archive://dev-env.tar
-    apptainer shell dev-env.sif
+    dev
     ```
 
 

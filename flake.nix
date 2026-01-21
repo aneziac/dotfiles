@@ -22,26 +22,27 @@
         "macos" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "aarch64-darwin";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "macos"; };
+          extraSpecialArgs = { mySystem = "macos"; inherit self; };
         };
         "mint" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "x86_64-linux";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "mint"; };
+          extraSpecialArgs = { mySystem = "mint";  inherit self; };
         };
         "arch" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "x86_64-linux";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "arch"; };
+          extraSpecialArgs = { mySystem = "arch";  inherit self; };
         };
       };
 
       devShells = {
-        x86_64-linux.default = import ./shells/dev.nix {
-          pkgs = mkPkgs "x86_64-linux";
+        x86_64-linux = {
+          default = import ./shells/dev.nix { pkgs = mkPkgs "x86_64-linux"; };
+          cuda = import ./shells/cuda.nix { pkgs = mkPkgs "x86_64-linux"; };
         };
-        aarch64-darwin.default = import ./shells/dev.nix {
-          pkgs = mkPkgs "aarch64-darwin";
+        aarch64-darwin = {
+          default = import ./shells/dev.nix { pkgs = mkPkgs "aarch64-darwin"; };
         };
       };
 
@@ -60,6 +61,11 @@
             pkgs.dockerTools.caCertificates
             pkgs.dockerTools.fakeNss
             pkgs.coreutils
+
+            (pkgs.runCommand "bash-link" {} ''
+              mkdir -p $out/bin
+              ln -s ${pkgs.bashInteractive}/bin/bash $out/bin/bash
+            '')
           ] ++ devShell.buildInputs;
 
           config = {
