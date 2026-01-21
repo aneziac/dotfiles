@@ -20,6 +20,7 @@ pkgs.mkShell {
     git
     procps
     tmux
+    bashInteractive
     zsh
     zsh-powerlevel10k
     zsh-autosuggestions

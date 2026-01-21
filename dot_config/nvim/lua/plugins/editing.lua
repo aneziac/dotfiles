@@ -45,6 +45,9 @@ vim.keymap.set('n', '<leader>af', function() require('sidekick.cli').send({ msg 
 
 -- Blink
 require('blink.cmp').setup({
+  fuzzy = {
+    implementation = "lua"
+  },
   keymap = {
     ['<C-n>'] = { 'select_next', 'fallback' },
     ['<C-p>'] = { 'select_prev', 'fallback' },
