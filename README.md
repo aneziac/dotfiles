@@ -15,10 +15,10 @@ Setup steps on new machine:
 2. Clone dotfiles with
 
     ```zsh
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aneziac -b $HOME/.local/bin
+    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aneziac
     ```
 
-3. `cd` into `nix-config` and run
+3. `cd` into `home-manager` and run
 
     ```zsh
     sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon

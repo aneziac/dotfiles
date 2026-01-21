@@ -1,0 +1,20 @@
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") (ne .chezmoi.osRelease.id "arch") }}
+
+[[ -f "$ZSH_POWERLEVEL10K_PATH" ]] && source "$ZSH_POWERLEVEL10K_PATH"
+[[ -f "$ZSH_AUTOSUGGEST_PATH" ]] && source "$ZSH_AUTOSUGGEST_PATH"
+[[ -f "$ZSH_SYNTAX_HIGHLIGHTING_PATH" ]] && source "$ZSH_SYNTAX_HIGHLIGHTING_PATH"
+
+# Aliases
+alias l='eza --color=always --long --icons=always --no-user'
+alias v='nvim'
+alias lgt='lazygit'
+alias devsh='nix-portable nix develop ~'
+
+# Environment
+export VISUAL=nvim
+export EDITOR=nvim
+
+source ~/.config/zsh/config.zsh
+autoload -Uz compinit && compinit
+{{ else }}
+{{ end }}

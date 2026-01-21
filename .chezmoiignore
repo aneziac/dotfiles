@@ -1,5 +1,8 @@
 README.md
 .ssh/known_hosts*
+keyboards
+
+# Personal systems
 
 {{ if eq .chezmoi.os "darwin" }}
 .config/i3
@@ -26,4 +29,19 @@ dot_aerospace.toml
 .config/rofi
 .config/gtk-3.0
 .Xresources
+{{ end }}
+
+# Remote linux systems
+
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") (ne .chezmoi.osRelease.id "arch") }}
+dot_aerospace.toml
+.Brewfile
+.config/i3
+.config/picom
+.config/polybar
+.config/rofi
+.config/sketchybar
+.config/gtk-3.0
+.Xresources
+home-manager
 {{ end }}
