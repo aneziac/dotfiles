@@ -1,6 +1,7 @@
 README.md
 .ssh/known_hosts*
 keyboards
+.local/bin/cloud_dotfiles_setup
 
 # Personal systems
 
@@ -11,6 +12,7 @@ keyboards
 .config/rofi
 .config/gtk-3.0
 .Xresources
+.local/bin/powermenu
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
@@ -29,6 +31,7 @@ dot_aerospace.toml
 .config/rofi
 .config/gtk-3.0
 .Xresources
+.local/bin/powermenu
 {{ end }}
 
 # Remote linux systems
