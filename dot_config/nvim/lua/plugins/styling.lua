@@ -7,28 +7,13 @@ vim.pack.add({
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
 })
 
+vim.o.winborder = 'rounded'
+
 -- Colorscheme
 require('gruvbox').setup({})
 vim.cmd.colorscheme('gruvbox')
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
 vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none', fg = 'none' })
-
-
-vim.api.nvim_exec_autocmds('ColorScheme', {})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = function()
-    local normal_bg = vim.api.nvim_get_hl(0, { name = 'Normal' }).bg
-
-    -- vim.api.nvim_set_hl(0, 'SidekickNormal', { bg = normal_bg })
-    -- vim.api.nvim_set_hl(0, 'SidekickBorder', { bg = normal_bg })
-
-    vim.api.nvim_set_hl(0, 'SnacksNormal', { bg = normal_bg })
-    vim.api.nvim_set_hl(0, 'SnacksBorder', { bg = normal_bg })
-
-    vim.api.nvim_set_hl(0, 'TroubleNormal', { bg = normal_bg })
-    vim.api.nvim_set_hl(0, 'TroubleBorder', { bg = normal_bg })
-  end,
-})
 
 -- Statusline
 require('lualine').setup({

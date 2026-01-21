@@ -90,6 +90,3 @@ require 'plugins.lsp'
 require 'plugins.navigation'
 require 'plugins.preview'
 require 'plugins.styling'
-
--- Fix visual bug when using floating window
-vim.api.nvim_set_hl(0, "NormalFloat", { link = "Pmenu" })
