@@ -14,12 +14,16 @@ keyboards
 .Xresources
 .local/bin/powermenu
 wallpapers
+.zshrc
+.bashrc
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
 dot_aerospace.toml
 .Brewfile
 .config/sketchybar
+.zshrc
+.bashrc
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
@@ -33,6 +37,8 @@ dot_aerospace.toml
 .config/gtk-3.0
 .Xresources
 .local/bin/powermenu
+.zshrc
+.bashrc
 {{ end }}
 
 # Remote linux systems
@@ -48,5 +54,6 @@ dot_aerospace.toml
 .config/sketchybar
 .config/gtk-3.0
 .Xresources
+.local/bin/powermenu
 home-manager
 {{ end }}
