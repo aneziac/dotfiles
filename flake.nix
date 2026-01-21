@@ -44,5 +44,24 @@
           pkgs = mkPkgs "aarch64-darwin";
         };
       };
+
+      packages.x86_64-linux.devContainer =
+        let
+          pkgs = mkPkgs "x86_64-linux";
+          devShell = import ./shells/dev.nix { inherit pkgs; };
+        in
+        pkgs.dockerTools.buildImage {
+          name = "dev-env";
+          tag = "latest";
+
+          copyToRoot = pkgs.buildEnv {
+            name = "dev-tools";
+            paths = devShell.buildInputs;
+          };
+
+          config = {
+            Cmd = [ "${pkgs.zsh}/bin/zsh" ];
+          };
+        };
     };
 }
