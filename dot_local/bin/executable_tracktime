@@ -28,11 +28,8 @@ tmux set -g status-interval 5
 
 if [[ "$selected" == "STOP" ]]; then
     timew stop
-    tmux set -g status-left "#[fg=#98971a]#[bold] #S"
 else
     timew start "$selected"
-    tmux set -g status-left "#[fg=#98971a]#[bold] #S - $selected #(timew | awk '/^ *Total/ {print \$NF}')"
-
         if [[ "$selected" == "WASTE" ]]; then
             sudo "$HOSTESS_CMD" rm www.youtube.com
             sudo "$HOSTESS_CMD" rm www.reddit.com

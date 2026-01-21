@@ -1,2 +1,2 @@
 export PATH="$HOME/.local/bin:$PATH"
-alias devsh='nix-portable nix develop ~'
+alias dev='apptainer exec ~/dev-env.sif /bin/zsh'

@@ -5,7 +5,7 @@ Current machines:
 - Early 2020 Macbook Air
 - 2022 HP Omen (dual booting Mint and Arch)
 
-Setup steps on new machine:
+## Personal Machine Setup
 
 1. Copy `age` key from existing machine via:
     - `hostname -I` - identify IP address on target machine
@@ -51,6 +51,36 @@ Setup steps on new machine:
     ```zsh
     echo "$USER ALL=(ALL) NOPASSWD: $(which hostess)" | sudo tee /etc/sudoers.d/hostess
     ```
+
+## Remote Machine Setup
+
+1. Copy `age` key from existing machine via:
+    - `hostname -I` - identify IP address on target machine
+    - `mkdir -p ~/.config/chezmoi` on target machine
+    - `scp ~/.config/chezmoi/key.txt user@target-machine-ip:~/.config/chezmoi/key.txt`
+
+2. Clone dotfiles with
+
+    ```zsh
+    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply aneziac
+    ```
+
+3. Either install nix and jump into development shell via `devsh`, or, for better containerization, build the development Docker container with
+
+    ```zsh
+    nix build .#devContainer
+    ```
+    Then copy over the docker container to the remote via `scp` and unzip it via `gunzip`.
+    For apptainer, use
+
+    ```zsh
+    scp result ucsb-pod:~/dev-env.tar.gz
+    ssh ucsb-pod
+    gunzip dev-env.tar.gz
+    apptainer build --fakeroot dev-env.sif docker-archive://dev-env.tar
+    apptainer shell dev-env.sif
+    ```
+
 
 TODO:
 - automatic keyd setup; also should be managed via nix
