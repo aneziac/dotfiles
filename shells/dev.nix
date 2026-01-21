@@ -3,6 +3,13 @@
 pkgs.mkShell {
   buildInputs = with pkgs; [
     neovim
+    tree
+    dust
+    curl
+    wget
+    atuin
+    delta
+    gh
     ripgrep
     fd
     fzf

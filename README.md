@@ -15,7 +15,7 @@ Setup steps on new machine:
 2. Clone dotfiles with
 
     ```zsh
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply aneziac
+    sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply aneziac
     ```
 
 3. `cd` into `home-manager` and run

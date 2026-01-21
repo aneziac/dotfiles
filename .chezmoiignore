@@ -13,6 +13,7 @@ keyboards
 .config/gtk-3.0
 .Xresources
 .local/bin/powermenu
+wallpapers
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
@@ -37,6 +38,7 @@ dot_aerospace.toml
 # Remote linux systems
 
 {{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") (ne .chezmoi.osRelease.id "arch") }}
+wallpapers
 dot_aerospace.toml
 .Brewfile
 .config/i3
