@@ -37,7 +37,6 @@ pkgs.mkShell {
     # Networking
     curl
     wget
-    openssh
 
     # System utilities
     procps

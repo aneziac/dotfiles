@@ -39,7 +39,6 @@
       devShells = {
         x86_64-linux = {
           default = import ./shells/dev.nix { pkgs = mkPkgs "x86_64-linux"; };
-          cuda = import ./shells/cuda.nix { pkgs = mkPkgs "x86_64-linux"; };
         };
         aarch64-darwin = {
           default = import ./shells/dev.nix { pkgs = mkPkgs "aarch64-darwin"; };
@@ -59,14 +58,30 @@
             pkgs.dockerTools.usrBinEnv
             pkgs.dockerTools.binSh
             pkgs.dockerTools.caCertificates
-            pkgs.dockerTools.fakeNss
             pkgs.coreutils
+            pkgs.openssh
 
             (pkgs.runCommand "bash-link" {} ''
               mkdir -p $out/bin
               ln -s ${pkgs.bashInteractive}/bin/bash $out/bin/bash
             '')
           ] ++ devShell.buildInputs;
+
+          extraCommands = ''
+            mkdir -p etc
+
+            cat > etc/passwd <<EOF
+          root:x:0:0:root:/root:/bin/sh
+          nobody:x:65534:65534:nobody:/:/bin/sh
+          EOF
+
+            cat > etc/group <<EOF
+          root:x:0:
+          nobody:x:65534:
+          EOF
+
+            chmod 644 etc/passwd etc/group
+          '';
 
           config = {
             Cmd = [ "${pkgs.zsh}/bin/zsh" ];
