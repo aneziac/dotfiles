@@ -19,7 +19,7 @@ wallpapers
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "linuxmint") }}
-dot_aerospace.toml
+.aerospace.toml
 .Brewfile
 .config/sketchybar
 .zshrc
@@ -27,7 +27,7 @@ dot_aerospace.toml
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.id "arch") }}
-dot_aerospace.toml
+.aerospace.toml
 .Brewfile
 .config/i3
 .config/sketchybar
@@ -45,7 +45,7 @@ dot_aerospace.toml
 
 {{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "linuxmint") (ne .chezmoi.osRelease.id "arch") }}
 wallpapers
-dot_aerospace.toml
+.aerospace.toml
 .Brewfile
 .config/i3
 .config/picom
@@ -56,4 +56,7 @@ dot_aerospace.toml
 .Xresources
 .local/bin/powermenu
 home-manager
+flake.lock
+flake.nix
+shells
 {{ end }}
