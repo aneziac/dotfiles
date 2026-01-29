@@ -24,6 +24,19 @@ if [[ $fzf_status -ne 0 || -z "$selected" ]]; then
     exit 0
 fi
 
+if [[ "$selected" == "WASTE" ]]; then
+    random_code=$(openssl rand -hex 16)
+    echo "To unblock sites, copy this code:"
+    echo "$random_code"
+    echo ""
+    read -p "Enter code: " user_input
+
+    if [[ "$user_input" != "$random_code" ]]; then
+        echo "Incorrect code. Aborting."
+        exit 1
+    fi
+fi
+
 tmux set -g status-interval 5
 
 if [[ "$selected" == "STOP" ]]; then
