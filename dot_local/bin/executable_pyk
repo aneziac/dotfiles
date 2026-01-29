@@ -1,0 +1,2 @@
+uv add ipykernel
+python -m ipykernel install --user --name=$(basename $PWD)

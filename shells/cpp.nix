@@ -14,6 +14,6 @@ pkgs.mkShell {
     # Debugging
     gef
     lldb
-    valgrind
+    # valgrind
   ];
 }

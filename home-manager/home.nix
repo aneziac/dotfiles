@@ -76,12 +76,15 @@ in {
       hostess
 
       # Languages & tools
+      tree-sitter
       nodejs
       typescript
       rustup
       go
       lua
       unstable.typst
+      quarto
+      obsidian
 
       # Formatters
       stylua
@@ -97,6 +100,7 @@ in {
       # Misc
       neofetch
       nmap
+
 
       # Fonts
       noto-fonts

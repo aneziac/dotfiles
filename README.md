@@ -54,3 +54,4 @@ Current machines:
 
 TODO:
 - automatic keyd setup; also should be managed via nix
+- swap out gdb for lldb

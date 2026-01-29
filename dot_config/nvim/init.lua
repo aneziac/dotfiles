@@ -55,13 +55,6 @@ vim.keymap.set('n', '<leader>so', function()
   print('Config reloaded!')
 end, { desc = 'Reload config' })
 
--- Treesitter
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    pcall(vim.treesitter.start)
-  end,
-})
-
 -- Autocommands
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
@@ -79,6 +72,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+require 'plugins.treesitter'
+require 'plugins.lsp'
+
 require 'plugins.debug'
 require 'plugins.editing'
 require 'plugins.editing'
@@ -86,7 +82,6 @@ require 'plugins.fzf'
 require 'plugins.git'
 require 'plugins.keybinds'
 require 'plugins.lint'
-require 'plugins.lsp'
 require 'plugins.navigation'
 require 'plugins.preview'
 require 'plugins.styling'

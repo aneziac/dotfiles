@@ -72,6 +72,10 @@
       "rev": "1098d7b3c34adcfa7feb3289ee434529abd4afd1",
       "src": "https://github.com/kylechui/nvim-surround"
     },
+    "nvim-treesitter": {
+      "rev": "f8bbc3177d929dc86e272c41cc15219f0a7aa1ac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
     "nvim-web-devicons": {
       "rev": "6788013bb9cb784e606ada44206b0e755e4323d7",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
@@ -80,9 +84,17 @@
       "rev": "81b8a91735ad5cd24a6b3137f14a89f19176364f",
       "src": "https://github.com/stevearc/oil.nvim"
     },
+    "otter.nvim": {
+      "rev": "6b75433f2c3c77999f94de0daf2e629d3f727b80",
+      "src": "https://github.com/jmbuhr/otter.nvim"
+    },
     "plenary.nvim": {
       "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "quarto-nvim": {
+      "rev": "cc99501a524b7abf484ed0248cae66ac53f93a13",
+      "src": "https://github.com/quarto-dev/quarto-nvim"
     },
     "recall.nvim": {
       "rev": "147d6cf59b3147183183eb04585b661133637d2a",
@@ -106,8 +118,7 @@
     },
     "typst-preview.nvim": {
       "rev": "7933922c1ff15fb47a13686ff9bb60e9fef5a157",
-      "src": "https://github.com/chomosuke/typst-preview.nvim",
-      "version": "'v1.0.0'"
+      "src": "https://github.com/chomosuke/typst-preview.nvim"
     },
     "vim-sleuth": {
       "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",

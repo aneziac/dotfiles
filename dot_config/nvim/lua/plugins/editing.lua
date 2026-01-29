@@ -27,6 +27,7 @@ require('mini.ai').setup({
 })
 
 -- Sidekick
+vim.lsp.config('copilot', {})
 vim.lsp.enable('copilot')
 require('sidekick').setup({
   cli = {

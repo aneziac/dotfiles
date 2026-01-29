@@ -48,4 +48,12 @@ vim.lsp.config('ts_ls', {})
 vim.lsp.config('clangd', {})
 vim.lsp.config('gopls', {})
 
-vim.lsp.enable({ 'lua_ls', 'tinymist', 'pyright', 'rust_analyzer', 'ts_ls', 'clangd', 'gopls' })
+vim.lsp.enable({
+  'lua_ls',
+  'tinymist',
+  'pyright',
+  'rust_analyzer',
+  'ts_ls',
+  'clangd',
+  'gopls'
+})
