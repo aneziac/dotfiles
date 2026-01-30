@@ -2,3 +2,6 @@ export PATH="$HOME/.local/bin:$PATH"
 alias l='eza --color=always --long --icons=always --no-user'
 alias v='nvim'
 alias lgt='lazygit'
+
+module load cmake
+module load cuda
