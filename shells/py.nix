@@ -6,6 +6,8 @@ pkgs.mkShell {
       debugpy
       jupyter
       ipython
+      pynvim
+      jupyter-client
     ]))
 
     # Package management

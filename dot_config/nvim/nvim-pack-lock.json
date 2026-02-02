@@ -40,6 +40,10 @@
       "rev": "19973fa2c13399d68bf8d2cd98b0cb7367a8a72a",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
+    "molten-nvim": {
+      "rev": "4fd7be6a12b5efda5179db642f13bad60893acca",
+      "src": "https://github.com/benlubas/molten-nvim"
+    },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"

@@ -33,8 +33,8 @@ vim.keymap.set('n', '<leader>mc', require('recall').clear, { desc = 'Clear marks
 vim.keymap.set('n', '<leader>ml', ':Telescope recall<CR>', { desc = 'List marks' })
 
 -- Tmux navigator (no setup needed, just keymaps)
-vim.keymap.set('n', '<C-h>', '<cmd>TmuxNavigateLeft<CR>')
-vim.keymap.set('n', '<C-j>', '<cmd>TmuxNavigateDown<CR>')
-vim.keymap.set('n', '<C-k>', '<cmd>TmuxNavigateUp<CR>')
-vim.keymap.set('n', '<C-l>', '<cmd>TmuxNavigateRight<CR>')
-vim.keymap.set('n', '<C-\\>', '<cmd>TmuxNavigatePrevious<CR>')
+vim.keymap.set('n', '<C-h>',  ':TmuxNavigateLeft<CR>')
+vim.keymap.set('n', '<C-j>',  ':TmuxNavigateDown<CR>')
+vim.keymap.set('n', '<C-k>',  ':TmuxNavigateUp<CR>')
+vim.keymap.set('n', '<C-l>',  ':TmuxNavigateRight<CR>')
+vim.keymap.set('n', '<C-\\>', ':TmuxNavigatePrevious<CR>')

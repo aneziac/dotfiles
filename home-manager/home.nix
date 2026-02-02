@@ -85,6 +85,7 @@ in {
       unstable.typst
       quarto
       obsidian
+      hugo
 
       # Formatters
       stylua
