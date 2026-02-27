@@ -15,7 +15,7 @@ local npairs = require('nvim-autopairs')
 local Rule = require('nvim-autopairs.rule')
 
 npairs.setup({})
-npairs.add_rule(Rule('$', '$', { 'typst', 'tex', 'latex', 'markdown' })
+npairs.add_rule(Rule('$', '$', { 'typst', 'tex', 'latex', 'markdown', 'quarto' })
   :with_move(function(opts) return opts.char == '$' end))
 
 -- Mini

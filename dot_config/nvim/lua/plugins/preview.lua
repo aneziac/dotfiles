@@ -15,7 +15,12 @@ vim.pack.add({
   { src = 'https://github.com/benlubas/molten-nvim' }
 })
 
-require('typst-preview').setup({})
+require('typst-preview').setup({
+  dependencies_bin = {
+    ['tinymist'] = 'tinymist',
+  },
+})
+
 vim.g.mkdp_filetypes = { 'markdown' }
 
 local otter = require('otter')
@@ -30,7 +35,7 @@ require('quarto').setup{
   lspFeatures = {
     enabled = true,
     chunks = "all",
-    languages = { "r", "python", "julia", "bash", "html", "typst", "=typst" },
+    languages = { "r", "python", "julia", "bash", "html", "typst" },
     diagnostics = {
       enabled = true,
       triggers = { "BufWritePost" },
@@ -55,17 +60,12 @@ vim.g.molten_virt_lines_off_by_1 = true
 vim.g.molten_auto_open_output = true
 vim.g.molten_output_show_more = true
 
-vim.keymap.set("n", "<localleader>mi", ":MoltenInit<CR>",
+vim.keymap.set("n", "<leader>ji", ":MoltenInit<CR>",
     { silent = true, desc = "Initialize kernel" })
-vim.keymap.set("n", "<localleader>rc", ":QuartoSend<CR>",
+vim.keymap.set("n", "<leader>jr", ":QuartoSend<CR>",
     { silent = true, desc = "Run code cell" })
-vim.keymap.set("n", "<localleader>rr", ":MoltenReevaluateCell<CR>",
-    { silent = true, desc = "Re-run cell" })
-
--- Quarto-specific: run current code cell
-vim.keymap.set("n", "<localleader>rc", function()
-  vim.cmd('QuartoSend')
-end, { silent = true, desc = "run code cell" })
+-- vim.keymap.set("n", "<leader>jr", ":MoltenReevaluateCell<CR>",
+--    { silent = true, desc = "Re-run cell" })
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "quarto", "markdown" },
@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("FileType", {
     end
     vim.b[buf].otter_activated = true
     vim.treesitter.start()
-    otter.activate({ "python", "rust", "javascript", "typst", "=typst" }, true, true, nil)
+    otter.activate({ "python", "rust", "javascript", "typst", }, true, true, nil)
   end,
 })
 
