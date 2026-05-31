@@ -1,6 +1,6 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 if [[ $(uname) == "Darwin" ]]; then
@@ -20,6 +20,11 @@ source ~/.p10k.zsh
 # Path modifications
 export PATH="$HOME/.local/bin:$PATH"
 
+if command -v nvidia-smi &> /dev/null && nvidia-smi &> /dev/null; then
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+fi
+
 # Tool initializations
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
@@ -30,12 +35,12 @@ bindkey '^G' clear-screen
 
 # Copy last output
 function copy-last-output() {
-  local last_cmd=$(fc -ln -1)
-  if [[ $(uname) == "Darwin" ]]; then
-    eval "$last_cmd" | pbcopy
-  else
-    eval "$last_cmd" | xclip -selection clipboard
-  fi
+    local last_cmd=$(fc -ln -1)
+    if [[ $(uname) == "Darwin" ]]; then
+        eval "$last_cmd" | pbcopy
+    else
+        eval "$last_cmd" | xclip -selection clipboard
+    fi
 }
 zle -N copy-last-output
 bindkey '^O' copy-last-output
