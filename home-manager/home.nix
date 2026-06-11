@@ -1,4 +1,4 @@
-{ config, pkgs, lib, mySystem, self, neovim-nightly, ... }:
+{ config, pkgs, lib, mySystem, self, ... }:
 
 let
   isLinux  = pkgs.stdenv.isLinux;
@@ -71,11 +71,13 @@ in {
       ngrok
       scooter
       spotify-player
-      zathura
+      # zathura
+      sioyek
       timewarrior
       hostess
 
       # Languages & tools
+      neovim
       tree-sitter
       nodejs
       typescript
@@ -89,19 +91,19 @@ in {
 
       # Formatters
       stylua
-      nodePackages.prettier
-      nodePackages.markdownlint-cli
+      prettier
+      markdownlint-cli
 
       # LSP servers
       lua-language-server
       typescript-language-server
       gopls
       unstable.tinymist
+      vscode-extensions.nomicfoundation.hardhat-solidity
 
       # Misc
-      neofetch
+      fastfetch
       nmap
-
 
       # Fonts
       noto-fonts
@@ -177,5 +179,5 @@ in {
     '';
   };
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

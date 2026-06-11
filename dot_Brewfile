@@ -1,6 +1,5 @@
 tap "FelixKratz/formulae"
 
-brew "neovim", args: ["HEAD"]
 brew "sketchybar"
 
 cask "ghostty"

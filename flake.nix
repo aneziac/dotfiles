@@ -7,14 +7,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim-nightly-overlay }:
+  outputs = { self, nixpkgs, home-manager }:
     let
       mkPkgs = system: import nixpkgs {
         inherit system;
-        overlays = [ neovim-nightly-overlay.overlays.default ];
+        # overlays = [ neovim-nightly-overlay.overlays.default ];
       };
     in
     {
