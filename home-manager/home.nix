@@ -99,7 +99,7 @@ in {
       typescript-language-server
       gopls
       unstable.tinymist
-      vscode-extensions.nomicfoundation.hardhat-solidity
+      vscode-solidity-server
 
       # Misc
       fastfetch

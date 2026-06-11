@@ -24,6 +24,7 @@ local pkgs = {
   'nix',
   'cuda',
   'yaml',
+  'solidity',
 }
 
 ts.setup({})

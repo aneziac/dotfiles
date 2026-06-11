@@ -26,34 +26,37 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      diagnostics = { globals = { 'vim' } },
-    },
+local lsps = {
+  { 'rust_analyzer' },
+  { 'pyright' },
+  { 'ts_ls' },
+  { 'clangd' },
+  { 'gopls' },
+  { 'solidity_ls' },
+  {
+    'lua_ls', {
+      settings = {
+        Lua = {
+          diagnostics = { globals = { 'vim' } },
+        },
+      },
+    }
   },
-})
+  {
+    'tinymist', {
+      settings = {
+        formatterMode = 'typstyle',
+        exportPdf = 'onType',
+        semanticTokens = 'disable',
+      },
+    }
+  }
+}
 
-vim.lsp.config('tinymist', {
-  settings = {
-    formatterMode = 'typstyle',
-    exportPdf = 'onType',
-    semanticTokens = 'disable',
-  },
-})
-
-vim.lsp.config('pyright', {})
-vim.lsp.config('rust_analyzer', {})
-vim.lsp.config('ts_ls', {})
-vim.lsp.config('clangd', {})
-vim.lsp.config('gopls', {})
-
-vim.lsp.enable({
-  'lua_ls',
-  'tinymist',
-  'pyright',
-  'rust_analyzer',
-  'ts_ls',
-  'clangd',
-  'gopls'
-})
+for _, lsp in pairs(lsps) do
+    local name, config = lsp[1], lsp[2]
+    if config then
+        vim.lsp.config(name, config)
+    end
+    vim.lsp.enable(name)
+end
