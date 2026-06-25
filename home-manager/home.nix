@@ -88,6 +88,9 @@ in {
       quarto
       obsidian
       hugo
+      foundry
+      ghc  # Haskell
+      cabal-install
 
       # Formatters
       stylua
@@ -100,6 +103,7 @@ in {
       gopls
       unstable.tinymist
       vscode-solidity-server
+      haskell-language-server
 
       # Misc
       fastfetch

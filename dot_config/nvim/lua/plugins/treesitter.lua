@@ -2,9 +2,7 @@ vim.pack.add({
   { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
 })
 
-local ts = require('nvim-treesitter')
-
-local pkgs = {
+local languages = {
   'python',
   'rust',
   'javascript',
@@ -25,13 +23,7 @@ local pkgs = {
   'cuda',
   'yaml',
   'solidity',
+  'haskell',
 }
 
-ts.setup({})
-ts.install(pkgs)
-
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function(args)
-    pcall(vim.treesitter.start, args.buf)
-  end,
-})
+require('nvim-treesitter').install(languages)
