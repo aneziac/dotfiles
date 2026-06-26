@@ -88,9 +88,10 @@ in {
       quarto
       obsidian
       hugo
-      foundry
+      foundry  # solidity
       ghc  # Haskell
       cabal-install
+      rocq-core
 
       # Formatters
       stylua
@@ -104,6 +105,8 @@ in {
       unstable.tinymist
       vscode-solidity-server
       haskell-language-server
+      coqPackages.coq-lsp
+      universal-ctags
 
       # Misc
       fastfetch

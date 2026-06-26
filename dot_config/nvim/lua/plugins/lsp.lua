@@ -2,6 +2,8 @@ vim.pack.add({
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/j-hui/fidget.nvim' },
   { src = 'https://github.com/tpope/vim-sleuth' },
+  { src = 'https://github.com/tomtomjhj/coq-lsp.nvim' },
+  { src = 'https://github.com/whonore/Coqtail' },
 })
 
 require('fidget').setup({})
@@ -23,6 +25,35 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('<leader>th', function()
       vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
     end, 'Toggle Inlay Hints')
+  end,
+})
+
+vim.g.loaded_coqtail = 1
+vim.g["coqtail#supported"] = 0
+
+require("coq-lsp").setup({
+  lsp = {
+    init_options = {
+      show_notices_as_diagnostics = true,
+    },
+  },
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if not client or client.name ~= "coq_lsp" then return end
+    local map = function(lhs, rhs, desc)
+      vim.keymap.set("n", lhs, rhs, { buffer = ev.buf, desc = desc })
+    end
+
+    map("gd", "<C-]>", "Goto Definition (tags)")          -- coq-lsp has no LSP definition
+    map("<leader>cs", "<cmd>CoqLsp saveVo<cr>", "Coq: save .vo")
+    map("<leader>cp", '<cmd>CoqLsp open_info_panel<cr>', "Coq: reopen goals panel")
+    map("<leader>cr", function()                           -- coq-lsp can wedge on Qed/typeclass search
+      client:stop(true)
+      vim.defer_fn(vim.cmd.edit, 500)
+    end, "Coq: restart server")
   end,
 })
 
