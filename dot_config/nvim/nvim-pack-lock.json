@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "Coqtail": {
+      "rev": "f513d17d3cb93067393a79b208330b06d9fbc22b",
+      "src": "https://github.com/whonore/Coqtail"
+    },
     "alpha-nvim": {
       "rev": "3979b01cb05734331c7873049001d3f2bb8477f4",
       "src": "https://github.com/goolord/alpha-nvim"
@@ -7,6 +11,10 @@
     "blink.cmp": {
       "rev": "10c164bbdf065f9781b6cc2f7d068c016276055b",
       "src": "https://github.com/saghen/blink.cmp"
+    },
+    "coq-lsp.nvim": {
+      "rev": "37d1fadbc7bed67dd677c01aa594ccd24cbe92ce",
+      "src": "https://github.com/tomtomjhj/coq-lsp.nvim"
     },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
