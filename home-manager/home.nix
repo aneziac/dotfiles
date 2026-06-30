@@ -111,6 +111,7 @@ in {
       # Misc
       fastfetch
       nmap
+      claude-code
 
       # Fonts
       noto-fonts
