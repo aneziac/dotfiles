@@ -74,6 +74,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 require 'plugins.treesitter'
 require 'plugins.lsp'
+require 'plugins.coq'
 
 require 'plugins.debug'
 require 'plugins.editing'
