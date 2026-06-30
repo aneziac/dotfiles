@@ -7,13 +7,16 @@ require('which-key').setup({
   icons = { mappings = true },
   spec = {
     { '<leader>c', group = 'Code',     mode = { 'n', 'x' } },
-    { '<leader>d', group = 'Document' },
+    { '<leader>d', group = 'Diagnostics' },
     { '<leader>r', group = 'Rename' },
     { '<leader>s', group = 'Search' },
     { '<leader>w', group = 'Workspace' },
     { '<leader>t', group = 'Toggle' },
-    { '<leader>h', group = 'Git Hunk', mode = { 'n', 'v' } },
+    { '<leader>h', group = 'Git',      mode = { 'n', 'v' } },
     { '<leader>m', group = 'Marks' },
     { '<leader>a', group = 'AI' },
+    { '<leader>C', group = 'Coq' },
+    { '<leader>j', group = 'Jupyter' },
+    { '<leader>T', group = 'Tabs' },
   },
 })

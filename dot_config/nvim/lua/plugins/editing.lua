@@ -78,4 +78,4 @@ Snacks.setup({
 })
 vim.keymap.set('n', '\\', function() Snacks.explorer() end, { desc = 'Explorer' })
 vim.keymap.set('n', '<F1>', function() Snacks.explorer() end, { desc = 'Explorer' })
-vim.keymap.set('n', '<leader>lg', function() Snacks.lazygit() end, { desc = 'Lazygit' })
+vim.keymap.set('n', '<leader>l', function() Snacks.lazygit() end, { desc = 'Lazygit' })
