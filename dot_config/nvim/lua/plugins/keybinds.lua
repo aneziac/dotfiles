@@ -18,5 +18,6 @@ require('which-key').setup({
     { '<leader>C', group = 'Coq' },
     { '<leader>j', group = 'Jupyter' },
     { '<leader>T', group = 'Tabs' },
+    { '<leader>z', group = 'Folding' },
   },
 })

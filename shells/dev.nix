@@ -2,16 +2,16 @@
 
 pkgs.mkShell {
   buildInputs = with pkgs; [
-  ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
-    neovim
   ] ++ (with pkgs; [
     # Core
+    chezmoi
     age
     vim
     nix-tree
 
     # Git
     git
+    git-lfs
     gh
     delta
     lazygit

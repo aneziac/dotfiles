@@ -28,6 +28,7 @@ fi
 # Tool initializations
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
+eval "$(opam env)"
 
 # Vim like editing
 bindkey -v

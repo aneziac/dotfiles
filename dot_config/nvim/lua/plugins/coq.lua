@@ -9,13 +9,7 @@ vim.g.coqtail_supported = 1  -- correct var name; truthy avoids the "needs Pytho
 vim.g.coqtail_nomap = 1      -- don't install Coqtail's <leader>c mappings
 vim.g.coqtail_tagfunc = 0    -- keep your coq.ctags <C-]>; don't let Coqtail override tagfunc
 
-require("coq-lsp").setup({
-  lsp = {
-    init_options = {
-      show_notices_as_diagnostics = true,
-    },
-  },
-})
+require("coq-lsp").setup({})
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
@@ -34,4 +28,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, "Coq: restart server")
   end,
 })
-
