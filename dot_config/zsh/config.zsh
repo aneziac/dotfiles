@@ -3,11 +3,28 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Homebrew
 if [[ $(uname) == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Virtualenv - see https://gitlab.com/aDogCalledSpot/dotfiles/-/blob/master/zsh/.config/zsh/p10k.conf?ref_type=heads
+# Attempt to source multi-user and single-user nix
+for f in /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh \
+         "$HOME/.nix-profile/etc/profile.d/nix.sh"; do
+    if [[ -e $f ]]; then source "$f"; break; fi
+done
+
+# For custom local scripts
+export PATH="$HOME/.local/bin:$PATH"
+
+# CUDA
+if command -v nvidia-smi &> /dev/null && nvidia-smi &> /dev/null; then
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+fi
+
+# ── Prompt ──────────────────────────────────────────────────────────
+# Virtualenv styling, see https://gitlab.com/aDogCalledSpot/dotfiles/-/blob/master/zsh/.config/zsh/p10k.conf
 POWERLEVEL9K_VIRTUALENV_CONTENT_EXPANSION=''
 POWERLEVEL9K_VIRTUALENV_VISUAL_IDENTIFIER_EXPANSION='${P9K_VISUAL_IDENTIFIER// }'
 POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=0
@@ -17,23 +34,16 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND="#6fc45e"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ~/.p10k.zsh
 
-# Path modifications
-export PATH="$HOME/.local/bin:$PATH"
-
-if command -v nvidia-smi &> /dev/null && nvidia-smi &> /dev/null; then
-    export PATH="/usr/local/cuda/bin:$PATH"
-    export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
-fi
-
-# Tool initializations
+# ── Tool initializations ────────────────────────────────────────────
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 eval "$(opam env)"
 
-# Vim like editing
+# ── Editing & keybindings ───────────────────────────────────────────
 bindkey -v
 bindkey '^G' clear-screen
 
+# ── Functions ───────────────────────────────────────────────────────
 # Copy last output
 function copy-last-output() {
     local last_cmd=$(fc -ln -1)
