@@ -16,12 +16,12 @@ exec-on-workspace-change = ['/bin/bash', '-c',
 ]
 
 [gaps]
-outer.top = 32
-outer.bottom = 6
-outer.left = 6
-outer.right = 6
 inner.horizontal = 8
-inner.vertical = 8
+inner.vertical   = 8
+outer.left       = 8
+outer.right      = 8
+outer.top        = 8
+outer.bottom     = 48   # floating sketchybar: y_offset(4) + height(32) + gap(10)
 
 # ---------------
 # MAIN MODE

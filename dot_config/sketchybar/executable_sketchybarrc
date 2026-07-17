@@ -1,87 +1,151 @@
-# This is a demo config to showcase some of the most important commands.
-# It is meant to be changed and configured, as it is intentionally kept sparse.
-# For a (much) more advanced configuration example see my dotfiles:
-# https://github.com/FelixKratz/dotfiles
+# SketchyBar — floating Gruvbox bar
+# Matches the Ghostty / Alacritty background (Gruvbox Dark #282828).
+# Docs: https://felixkratz.github.io/SketchyBar/
 
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
-##### Bar Appearance #####
-# Configuring the general appearance of the bar.
-# These are only some of the options available. For all options see:
-# https://felixkratz.github.io/SketchyBar/config/bar
-# If you are looking for other colors, see the color picker:
-# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+##### Gruvbox palette #####
+BG=0xff282828          # bg0  — matches terminal background
+BG1=0xff3c3836         # bg1  — item bubbles
+BG2=0xff504945         # bg2  — borders
+FG=0xffebdbb2          # fg   — text
+GRAY=0xff928374
 
-sketchybar --bar position=top height=26 blur_radius=30 color=0x40000000 sticky=on topmost=on
+RED=0xfffb4934
+GREEN=0xffb8bb26
+YELLOW=0xfffabd2f
+BLUE=0xff83a598
+PURPLE=0xffd3869b
+AQUA=0xff8ec07c
+ORANGE=0xfffe8019
+
+##### Bar Appearance #####
+# A floating bar: pinned to the bottom, lifted up with y_offset, inset from the
+# screen edges with margin, and rounded. Border gives it a subtle frame.
+sketchybar --bar \
+  position=bottom \
+  height=32 \
+  margin=10 \
+  y_offset=4 \
+  corner_radius=14 \
+  border_width=2 \
+  border_color=$BG2 \
+  color=$BG \
+  padding_left=10 \
+  padding_right=10 \
+  blur_radius=0 \
+  sticky=on \
+  topmost=on
 
 ##### Changing Defaults #####
-# We now change some default values, which are applied to all further items.
-# For a full list of all available item properties see:
-# https://felixkratz.github.io/SketchyBar/config/items
-
 default=(
-  padding_left=5
-  padding_right=5
-  icon.font="Hack Nerd Font:Bold:16.0"
+  padding_left=4
+  padding_right=4
+  icon.font="Hack Nerd Font:Bold:15.0"
   label.font="Hack Nerd Font:Bold:13.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  icon.padding_left=4
+  icon.color=$FG
+  label.color=$FG
+  icon.padding_left=8
   icon.padding_right=4
   label.padding_left=4
-  label.padding_right=4
+  label.padding_right=8
+  background.height=24
+  background.corner_radius=8
 )
 sketchybar --default "${default[@]}"
 
-##### Adding Left Items #####
-# We add some regular items to the left side of the bar, where
-# only the properties deviating from the current defaults need to be set
-
+##### Left: Workspaces #####
 sketchybar --add event aerospace_workspace_change
 
-sketchybar --add event aerospace_workspace_change
 for sid in $(aerospace list-workspaces --all); do
     sketchybar --add item space.$sid left \
         --subscribe space.$sid aerospace_workspace_change \
         --set space.$sid \
-        background.color=0xff3c3836 \
-        background.corner_radius=5 \
-        background.height=20 \
+        background.color=$BG1 \
+        background.corner_radius=8 \
+        background.height=24 \
         background.drawing=on \
-        label="$sid" \
-        label.padding_left=3 \
-        label.padding_right=13 \
-        padding_left=2 \
-        padding_right=2 \
+        icon="$sid" \
+        icon.font="Hack Nerd Font:Bold:13.0" \
+        icon.padding_left=10 \
+        icon.padding_right=10 \
+        label.drawing=off \
+        padding_left=3 \
+        padding_right=3 \
         click_script="aerospace workspace $sid" \
-        script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+        script="$PLUGIN_DIR/aerospace.sh $sid"
 done
 
-sketchybar --add item chevron left \
-           --set chevron icon= label.drawing=off \
-           --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+##### Left: Focused App #####
+sketchybar --add item front_app left \
+           --set front_app \
+             icon.drawing=off \
+             label.color=$FG \
+             background.drawing=on \
+             background.color=$BG1 \
+             background.corner_radius=8 \
+             background.height=24 \
+             padding_left=6 \
+             script="$PLUGIN_DIR/front_app.sh" \
            --subscribe front_app front_app_switched
 
-##### Adding Right Items #####
-# In the same way as the left items we can add items to the right side.
-# Additional position (e.g. center) are available, see:
-# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+##### Right: Status items #####
+# Each item carries its own accent-colored icon; a bracket wraps them all in a
+# single rounded bubble for a clean, unified look.
 
-# Some items refresh on a fixed cycle, e.g. the clock runs its script once
-# every 10s. Other items respond to events they subscribe to, e.g. the
-# volume.sh script is only executed once an actual change in system audio
-# volume is registered. More info about the event system can be found here:
-# https://felixkratz.github.io/SketchyBar/config/events
+CLOCK_ICON=$(printf '\357\220\272')  # nf-md-calendar_clock  U+F43A
 
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+           --set clock \
+             update_freq=10 \
+             icon="$CLOCK_ICON" \
+             icon.color=$BLUE \
+             script="$PLUGIN_DIR/clock.sh" \
            --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --set volume \
+             icon.color=$AQUA \
+             script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change \
            --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --set battery \
+             update_freq=120 \
+             icon.color=$GREEN \
+             script="$PLUGIN_DIR/battery.sh" \
            --subscribe battery system_woke power_source_change
 
-##### Force all scripts to run the first time (never do this in a script) #####
+##### Right: System info #####
+# Network, Bluetooth, VPN (only shown when connected) and keyboard layout.
+
+sketchybar --add item network right \
+           --set network \
+             update_freq=15 \
+             script="$PLUGIN_DIR/network.sh" \
+           --subscribe network wifi_change system_woke \
+           --add item bluetooth right \
+           --set bluetooth \
+             update_freq=30 \
+             script="$PLUGIN_DIR/bluetooth.sh" \
+           --subscribe bluetooth system_woke \
+           --add item vpn right \
+           --set vpn \
+             update_freq=10 \
+             drawing=off \
+             script="$PLUGIN_DIR/vpn.sh" \
+           --subscribe vpn system_woke \
+           --add item keyboard right \
+           --set keyboard \
+             update_freq=5 \
+             script="$PLUGIN_DIR/keyboard.sh"
+
+# Wrap every right-side item in a single rounded bubble.
+sketchybar --add bracket status \
+             keyboard vpn bluetooth network battery volume clock \
+           --set status \
+             background.color=$BG1 \
+             background.corner_radius=8 \
+             background.height=24 \
+             background.border_width=1 \
+             background.border_color=$BG2
+
+##### Force all scripts to run the first time #####
 sketchybar --update
