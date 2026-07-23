@@ -8,6 +8,7 @@ pkgs.mkShell {
     age
     vim
     nix-tree
+    neovim
 
     # Git
     git

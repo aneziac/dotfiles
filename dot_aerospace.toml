@@ -1,3 +1,6 @@
+# Launch AeroSpace automatically at login
+start-at-login = true
+
 # Keep Aerospace’s “normalization” off initially to mimic i3 more closely.
 enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = false
@@ -5,10 +8,9 @@ enable-normalization-opposite-orientation-for-nested-containers = false
 # Mouse follows focus when monitor changes (nice QoL)
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-# Run Sketchybar together with AeroSpace
-# sketchybar has a built-in detection of already running process,
-# so it won't be run twice on AeroSpace restart
-after-startup-command = ['exec-and-forget sketchybar']
+# Reload sketchybar once AeroSpace is up so its workspace items (built from
+# `aerospace list-workspaces`) populate; start it if it isn't running yet.
+after-startup-command = ['exec-and-forget sketchybar --reload || sketchybar']
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = ['/bin/bash', '-c',
@@ -58,6 +60,7 @@ alt-ctrl-up    = 'resize height -50'
 # --- Layouts / Fullscreen ---
 alt-e = 'layout tiles horizontal vertical'
 alt-z = 'fullscreen'
+alt-shift-space = 'layout floating tiling'   # toggle focused window float/tile
 
 # --- Workspaces 1–9 ---
 alt-1 = 'workspace 1'

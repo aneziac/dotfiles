@@ -15,5 +15,12 @@ pkgs.mkShell {
     gef
     lldb
     # valgrind
+
+    # Rust (rust-analyzer is added via rustup in home.nix's activation)
+    rustup
+
+    # Go
+    go
+    gopls
   ];
 }

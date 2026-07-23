@@ -24,7 +24,8 @@ Current machines:
     sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
     ```
 
-    (remove --daemon for MacOS) to install nix, then
+    to install nix.
+    Get the unstable channel and then run
 
     ```zsh
     nix run home-manager/master -- switch --flake .#mint --impure

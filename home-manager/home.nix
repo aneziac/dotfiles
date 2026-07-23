@@ -7,11 +7,12 @@ let
   isMint = mySystem == "mint";
   isArch = mySystem == "arch";
 
-  unstable = import <nixpkgs-unstable> {};
-
-  devPackages = (import (self + "/shells/dev.nix") { inherit pkgs; }).buildInputs;
-  cppPackages = (import (self + "/shells/cpp.nix") { inherit pkgs; }).buildInputs;
-  pyPackages  = (import (self + "/shells/py.nix")  { inherit pkgs; }).buildInputs;
+  devPackages        = (import (self + "/shells/dev.nix")        { inherit pkgs; }).buildInputs;
+  systemsPackages    = (import (self + "/shells/systems.nix")    { inherit pkgs; }).buildInputs;
+  pyPackages         = (import (self + "/shells/py.nix")         { inherit pkgs; }).buildInputs;
+  functionalPackages = (import (self + "/shells/functional.nix") { inherit pkgs; }).buildInputs;
+  tsPackages         = (import (self + "/shells/typescript.nix") { inherit pkgs; }).buildInputs;
+  sciencePackages    = (import (self + "/shells/science.nix")    { inherit pkgs; }).buildInputs;
 in {
   programs.home-manager.enable = true;
 
@@ -53,7 +54,8 @@ in {
   };
 
   home.packages =
-    devPackages ++ cppPackages ++ pyPackages
+    devPackages ++ systemsPackages ++ pyPackages ++ functionalPackages
+    ++ tsPackages ++ sciencePackages
 
     ++ (with pkgs; [
       # Container & build tools
@@ -62,50 +64,25 @@ in {
       lazydocker
 
       # Media processing
-      ffmpeg
       imagemagick
       p7zip
 
       # Terminal utilities
-      yazi
       ngrok
-      scooter
       spotify-player
-      # zathura
-      sioyek
       timewarrior
       hostess
 
       # Languages & tools
-      neovim
-      tree-sitter
-      nodejs
-      typescript
-      rustup
-      go
       lua
-      unstable.typst
-      quarto
-      obsidian
       hugo
       foundry  # solidity
-      ghc  # Haskell
-      cabal-install
-      rocq-core
 
       # Formatters
-      stylua
-      prettier
       markdownlint-cli
 
       # LSP servers
-      lua-language-server
-      typescript-language-server
-      gopls
-      unstable.tinymist
       vscode-solidity-server
-      haskell-language-server
-      coqPackages.coq-lsp
       universal-ctags
 
       # Misc
