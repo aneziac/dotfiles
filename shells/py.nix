@@ -1,7 +1,7 @@
 { pkgs }:
 
-pkgs.mkShell {
-  buildInputs = with pkgs; [
+{
+  packages = with pkgs; [
     (python3.withPackages (ps: with ps; [
       debugpy
       jupyter
@@ -18,8 +18,5 @@ pkgs.mkShell {
     ruff
   ];
 
-  shellHook = ''
-    # Use uv for virtual environments
-    export UV_PYTHON="${pkgs.python3}/bin/python3"
-  '';
+  hook = ''export UV_PYTHON="${pkgs.python3}/bin/python3"'';
 }

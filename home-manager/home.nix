@@ -1,23 +1,16 @@
-{ config, pkgs, lib, mySystem, self, ... }:
+{ config, pkgs, lib, mySystem, isDesktop, username, self, ... }:
 
 let
-  isLinux  = pkgs.stdenv.isLinux;
   isDarwin = pkgs.stdenv.isDarwin;
 
   isMint = mySystem == "mint";
-  isArch = mySystem == "arch";
 
-  devPackages        = (import (self + "/shells/dev.nix")        { inherit pkgs; }).buildInputs;
-  systemsPackages    = (import (self + "/shells/systems.nix")    { inherit pkgs; }).buildInputs;
-  pyPackages         = (import (self + "/shells/py.nix")         { inherit pkgs; }).buildInputs;
-  functionalPackages = (import (self + "/shells/functional.nix") { inherit pkgs; }).buildInputs;
-  tsPackages         = (import (self + "/shells/typescript.nix") { inherit pkgs; }).buildInputs;
-  sciencePackages    = (import (self + "/shells/science.nix")    { inherit pkgs; }).buildInputs;
+  devPackages = import (self + "/shells/dev.nix") { inherit pkgs; };
 in {
   programs.home-manager.enable = true;
 
-  home.username      = if isDarwin then "Nate"        else "nate"      ;
-  home.homeDirectory = if isDarwin then "/Users/Nate" else "/home/nate";
+  home.username      = username;
+  home.homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
 
   nixpkgs.config.allowUnfree = true;
 
@@ -38,7 +31,7 @@ in {
       v   = "nvim";
       lgt = "lazygit";
       ldk = "lazydocker";
-      dsh = "nix-shell --run zsh";
+      dsh = "nix develop";
     } // lib.optionalAttrs (!isDarwin) {
       bat = "batcat";
     };
@@ -54,14 +47,11 @@ in {
   };
 
   home.packages =
-    devPackages ++ systemsPackages ++ pyPackages ++ functionalPackages
-    ++ tsPackages ++ sciencePackages
+    devPackages
 
-    ++ (with pkgs; [
+    ++ (with pkgs; lib.optionals isDesktop [
       # Container & build tools
-      docker
       just
-      lazydocker
 
       # Media processing
       imagemagick
@@ -69,21 +59,8 @@ in {
 
       # Terminal utilities
       ngrok
-      spotify-player
       timewarrior
       hostess
-
-      # Languages & tools
-      lua
-      hugo
-      foundry  # solidity
-
-      # Formatters
-      markdownlint-cli
-
-      # LSP servers
-      vscode-solidity-server
-      universal-ctags
 
       # Misc
       fastfetch
@@ -96,12 +73,6 @@ in {
       nerd-fonts.meslo-lg
     ]
 
-    ++ lib.optionals isLinux [
-      bluez
-      bluez-tools
-      pavucontrol
-    ]
-
     ++ lib.optionals isMint [
       i3
       (polybar.override {
@@ -112,36 +83,10 @@ in {
       rofi
       playerctl
       brightnessctl
-    ]
 
-    ++ lib.optionals isArch [
-      # WM
-      niri
-      waybar
-      fuzzel
-      mako
-
-      # Utils
-      grim
-      slurp
-      wl-clipboard
-
-      # GUI
-      alacritty
-      firefox
-      code
-      spotify
-      discord
-      bitwarden-desktop
-      gpick
-      gthumb
-      xournalpp
-      libreoffice-qt6-fresh
-      obs-studio
-      steam
-      whatsapp-electron
-      gimp3
-      zoom-us
+      bluez
+      bluez-tools
+      pavucontrol
     ]
 
     ++ lib.optionals isDarwin [
@@ -150,13 +95,6 @@ in {
   );
 
   home.activation = {
-    rustupSetup = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      if ! ${pkgs.rustup}/bin/rustup toolchain list 2>/dev/null | grep -q "(default)"; then
-        $DRY_RUN_CMD ${pkgs.rustup}/bin/rustup default stable
-        $DRY_RUN_CMD ${pkgs.rustup}/bin/rustup component add rust-analyzer
-      fi
-    '';
-
     brewBundle = lib.hm.dag.entryAfter ["writeBoundary"] ''
       if [ -f $HOME/.Brewfile ]; then
         $DRY_RUN_CMD /opt/homebrew/bin/brew bundle --global

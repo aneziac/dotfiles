@@ -6,6 +6,10 @@ fi
 # Homebrew
 if [[ $(uname) == "Darwin" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
+    # inside a dev shell the pinned toolchain has to outrank brew
+    if [[ -n $IN_NIX_SHELL ]]; then
+        path=("${(@)path:#/opt/homebrew/(bin|sbin)}" /opt/homebrew/bin /opt/homebrew/sbin)
+    fi
 fi
 
 # Attempt to source multi-user and single-user nix
@@ -37,7 +41,8 @@ source ~/.p10k.zsh
 # ── Tool initializations ────────────────────────────────────────────
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
-eval "$(opam env)"
+
+(( $+commands[opam] )) && eval "$(opam env)"
 
 # ── Editing & keybindings ───────────────────────────────────────────
 bindkey -v
