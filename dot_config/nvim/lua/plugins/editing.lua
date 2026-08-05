@@ -72,10 +72,16 @@ Snacks.setup({
   input = { enabled = true },
   explorer = { enabled = true },
   lazygit = { enabled = true },
+  gh = { enabled = true },
   words = { enabled = true },
   indent = { enabled = true },
   quickfile = { enabled = true },
 })
+
 vim.keymap.set('n', '\\', function() Snacks.explorer() end, { desc = 'Explorer' })
 vim.keymap.set('n', '<F1>', function() Snacks.explorer() end, { desc = 'Explorer' })
 vim.keymap.set('n', '<leader>l', function() Snacks.lazygit() end, { desc = 'Lazygit' })
+vim.keymap.set('n', '<leader>gi', function() Snacks.picker.gh_issue() end, { desc = "GitHub Issues (open)" })
+vim.keymap.set('n', '<leader>gI', function() Snacks.picker.gh_issue({ state = "all" }) end, { desc = "GitHub Issues (all)" })
+vim.keymap.set('n', '<leader>gp', function() Snacks.picker.gh_pr() end, { desc = "GitHub Pull Requests (open)" })
+vim.keymap.set('n', '<leader>gP', function() Snacks.picker.gh_pr({ state = "all" }) end, { desc = "GitHub Pull Requests (all)" })

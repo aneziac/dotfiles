@@ -12,12 +12,12 @@ require('which-key').setup({
     { '<leader>s', group = 'Search' },
     { '<leader>w', group = 'Workspace' },
     { '<leader>t', group = 'Toggle' },
+    { '<leader>g', group = 'Github' },
     { '<leader>h', group = 'Git',      mode = { 'n', 'v' } },
     { '<leader>m', group = 'Marks' },
     { '<leader>a', group = 'AI' },
     { '<leader>C', group = 'Coq' },
     { '<leader>j', group = 'Jupyter' },
-    { '<leader>T', group = 'Tabs' },
     { '<leader>z', group = 'Folding' },
   },
 })

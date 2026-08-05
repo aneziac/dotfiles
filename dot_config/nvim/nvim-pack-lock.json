@@ -12,6 +12,10 @@
       "rev": "10c164bbdf065f9781b6cc2f7d068c016276055b",
       "src": "https://github.com/saghen/blink.cmp"
     },
+    "bufferline.nvim": {
+      "rev": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3",
+      "src": "https://github.com/akinsho/bufferline.nvim"
+    },
     "coq-lsp.nvim": {
       "rev": "37d1fadbc7bed67dd677c01aa594ccd24cbe92ce",
       "src": "https://github.com/tomtomjhj/coq-lsp.nvim"

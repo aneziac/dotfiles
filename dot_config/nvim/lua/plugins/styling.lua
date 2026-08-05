@@ -1,6 +1,7 @@
 vim.pack.add({
   { src = 'https://github.com/ellisonleao/gruvbox.nvim' },
   { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = 'https://github.com/akinsho/bufferline.nvim' },
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
   { src = 'https://github.com/goolord/alpha-nvim' },
   { src = 'https://github.com/folke/todo-comments.nvim' },
@@ -18,14 +19,13 @@ vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none', fg = 'none' })
 -- Statusline
 require('lualine').setup({
   options = { theme = 'gruvbox_dark' },
-  tabline = {
-    lualine_a = {
-      {
-        "tabs",
-        mode = 1,
-        max_length = vim.o.columns,
-      }
-    }
+})
+
+-- Bufferline
+local bufferline = require('bufferline')
+bufferline.setup({
+  options = {
+    style_preset = bufferline.style_preset.minimal,
   }
 })
 
