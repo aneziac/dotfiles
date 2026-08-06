@@ -52,6 +52,7 @@ in {
     ++ (with pkgs; lib.optionals isDesktop [
       # Container & build tools
       just
+      docker
 
       # Media processing
       imagemagick

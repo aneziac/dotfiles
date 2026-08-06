@@ -8,7 +8,6 @@ with pkgs; [
   nix-tree
   neovim
   tree-sitter
-  docker
   lazydocker
   lua
 
