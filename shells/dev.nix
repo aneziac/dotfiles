@@ -10,6 +10,7 @@ with pkgs; [
   tree-sitter
   lazydocker
   lua
+  markdownlint-cli
 
   # Git
   git

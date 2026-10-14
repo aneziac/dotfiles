@@ -58,7 +58,7 @@
                else { packages = m.packages or []; hook = m.hook or ""; };
 
           shells = lib.genAttrs
-            [ "dev" "systems" "cpp" "py" "functional" "typescript" "science" "solidity" ]
+            [ "dev" "systems" "cpp" "java" "py" "functional" "typescript" "science" "solidity" ]
             importShell;
 
           mkDevShell = mods: pkgs.mkShell {
@@ -75,6 +75,7 @@
           default    = mkDevShell [ shells.dev ];
           systems    = mkDevShell [ shells.systems ];
           cpp        = mkDevShell [ shells.cpp ];
+          java       = mkDevShell [ shells.java ];
           py         = mkDevShell [ shells.py ];
           functional = mkDevShell [ shells.functional ];
           typescript = mkDevShell [ shells.typescript ];
@@ -85,6 +86,7 @@
           full = mkDevShell [
             shells.systems shells.py shells.functional
             shells.typescript shells.science shells.solidity
+            shells.java
           ];
         }
       );

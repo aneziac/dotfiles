@@ -47,7 +47,9 @@ Current machines:
     git remote set-url origin git@github.com:aneziac/dotfiles.git
     ```
 
-5. Add hostess to sudoers (to prevent distractions)
+5. TPM setup
+
+6. Add hostess to sudoers (to prevent distractions)
 
     ```zsh
     echo "$USER ALL=(ALL) NOPASSWD: $(which hostess)" | sudo tee /etc/sudoers.d/hostess
@@ -57,3 +59,4 @@ TODO:
 - automatic keyd setup; also should be managed via nix
 - swap out gdb for lldb
 - larger pane movement with alt doesn't work on mac
+- only call ruff if binary exists

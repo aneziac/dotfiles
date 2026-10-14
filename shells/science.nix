@@ -6,8 +6,9 @@ with pkgs; [
   unstable.typst
   unstable.tinymist
   quarto
+  julia
 
   # Docs & writing
   hugo
-  markdownlint-cli
+  go
 ]

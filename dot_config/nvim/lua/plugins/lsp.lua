@@ -2,6 +2,7 @@ vim.pack.add({
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/j-hui/fidget.nvim' },
   { src = 'https://github.com/tpope/vim-sleuth' },
+  { src = 'https://github.com/mfussenegger/nvim-jdtls' },
 })
 
 require('fidget').setup({})
@@ -33,6 +34,7 @@ local lsps = {
   { 'clangd' },
   { 'gopls' },
   { 'solidity_ls' },
+  { 'jdtls'},
   {
     'lua_ls', {
       settings = {
