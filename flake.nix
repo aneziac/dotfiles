@@ -8,10 +8,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixgl.url = "github:nix-community/nixGL";
+    nixgl.inputs.nixpkgs.follows = "nixpkgs";
     # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixgl }:
     let
       systems = [ "aarch64-darwin" "x86_64-linux" ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems f;
@@ -31,17 +33,33 @@
         "macos" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "aarch64-darwin";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "macos"; isDesktop = true;  username = "Nate"; inherit self; };
+          extraSpecialArgs = {
+            mySystem = "macos";
+            isDesktop = true;
+            username = "Nate";
+            inherit self;
+          };
         };
         "mint" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "x86_64-linux";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "mint";  isDesktop = true;  username = "nate"; inherit self; };
+          extraSpecialArgs = {
+            mySystem = "mint";
+            isDesktop = true;
+            username = "nate";
+            inherit self;
+            nixglPkgs = nixgl.packages.x86_64-linux;
+          };
         };
         "headless" = home-manager.lib.homeManagerConfiguration {
           pkgs = mkPkgs "x86_64-linux";
           modules = [ ./home-manager/home.nix ];
-          extraSpecialArgs = { mySystem = "headless"; isDesktop = false; username = "nate"; inherit self; };
+          extraSpecialArgs = {
+            mySystem = "headless";
+            isDesktop = false;
+            username = "nate";
+            inherit self;
+          };
         };
       };
 

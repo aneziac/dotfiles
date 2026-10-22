@@ -1,4 +1,4 @@
-{ config, pkgs, lib, mySystem, isDesktop, username, self, ... }:
+{ config, pkgs, lib, mySystem, isDesktop, username, self, nixglPkgs ? null, ... }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
@@ -85,13 +85,14 @@ in {
       playerctl
       brightnessctl
 
-      bluez
-      bluez-tools
-      pavucontrol
+      (pkgs.writeShellScriptBin "sioyek" ''
+        exec ${nixglPkgs.nixGLIntel}/bin/nixGLIntel ${pkgs.sioyek}/bin/sioyek "$@"
+      '')
     ]
 
     ++ lib.optionals isDarwin [
       colima
+      sioyek
     ]
   );
 
