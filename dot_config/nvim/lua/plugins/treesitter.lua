@@ -21,7 +21,6 @@ local languages = {
   'markdown_inline',
   'svelte',
   'vue',
-  'tmux',
   'lua',
   'nix',
   'cuda',
