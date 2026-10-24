@@ -66,7 +66,7 @@ in {
       # Misc
       fastfetch
       nmap
-      claude-code
+      # claude-code
 
       # Fonts
       noto-fonts
@@ -104,5 +104,5 @@ in {
     '';
   };
 
-  home.stateVersion = "26.05";
+  home.stateVersion = "26.11";
 }
