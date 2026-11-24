@@ -1,9 +1,9 @@
-#!/usr/bin/zsh
+#!/usr/bin/env bash
 
 # Kill any old bars and wait until they're fully gone
-pkill -x polybar 2>/dev/null || true
+pkill -f '^[^ ]*polybar mybar' 2>/dev/null || true
 for i in {1..50}; do
-  pgrep -x polybar >/dev/null || break
+  pgrep -f '^[^ ]*polybar mybar' >/dev/null || break
   sleep 0.05
 done
 

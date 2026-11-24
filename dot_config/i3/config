@@ -102,6 +102,9 @@ bindsym $mod+Shift+r reload
 bindsym $mod+Shift+c restart
 bindsym $mod+Shift+e exec --no-startup-id ~/.local/bin/powermenu
 
+# Toggle external monitor between 2x-downscaled (UI matches laptop) and native 1080p (gaming)
+bindsym $mod+Shift+g exec --no-startup-id ~/.config/i3/monitor-layout.sh toggle && ~/.config/polybar/launch.sh
+
 # Start monitors -> wallpaper -> polybar in order
 exec_always --no-startup-id ~/.config/i3/start-session.sh
 
